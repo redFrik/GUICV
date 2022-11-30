@@ -40,11 +40,9 @@ AbstractGUICV : SCViewHolder {
 	get {
 		^spec.unmap(this.value)
 	}
-
 	set {|val|
 		^this.value_(spec.map(val))
 	}
-
 	softSet {|val, within= 0.05|
 		if((val-this.get).abs<=within, {
 			this.set(val);
@@ -66,8 +64,7 @@ AbstractGUICV : SCViewHolder {
 		var lastVal;
 
 		var controller= SimpleController(ref).put(\value, {|r|
-			var val= r.value;
-			if(normalized, {val= spec.unmap(val)});
+			var val= if(normalized, {spec.unmap(r.value)}, {spec.constrain(r.value)});
 			if(val!=lastVal, {
 				view.value_(val);
 				lastVal= val;
@@ -77,6 +74,7 @@ AbstractGUICV : SCViewHolder {
 		view.action_({|v|
 			if(normalized, {
 				this.set(v.value);
+				v.value= this.get;
 			}, {
 				this.value_(v.value);
 				v.value= this.value;
