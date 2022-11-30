@@ -22,6 +22,9 @@ GUICVSlider2 : GUICVSlider {
 			var w= usr.bounds.width;
 			var h= usr.bounds.height;
 			Pen.translate(w*0.5, h*0.5);
+			if(slider.orientation.isNil, {
+				slider.orientation= if(w<h, {\vertical}, {\horizontal});
+			});
 			if(slider.orientation==\vertical, {
 				Pen.rotate(1.5pi);
 				w= usr.bounds.height;
