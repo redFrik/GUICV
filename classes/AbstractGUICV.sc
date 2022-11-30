@@ -33,6 +33,7 @@ AbstractGUICV : SCViewHolder {
 		spec= argSpec.asSpec;
 		this.view_(this.prCreateView(args.asDict));
 		this.prConnect;
+		view.step= spec.step;
 		ref.changed(\value);
 	}
 
@@ -48,18 +49,21 @@ AbstractGUICV : SCViewHolder {
 
 	prConnect {
 		var lastVal;
+
 		var controller= SimpleController(ref).put(\value, {|r|
 			var val= spec.map(r.value);
 			if(normalized, {val= spec.unmap(val)});
-			if(val!=lastVal, {view.value= (lastVal= val)});
+			if(val!=lastVal, {view.value_(lastVal= val)});
 		});
+
 		view.action_({|v|
 			var val= v.value;
 			if(normalized, {val= spec.map(val)});
 			val= spec.unmap(val);
-			if(normalized, {v.value= val});
+			v.value= if(normalized, {val}, {spec.constrain(v.value)});
 			ref.value_(val).changed(\value);
 		});
+
 		view.onClose_({controller.remove});
 	}
 
