@@ -1,8 +1,7 @@
 GUICVNumberBox : AbstractGUICV {
 
-	// map {|val| ^spec.constrain(val)}
-	// unmap {|val| ^spec.constrain(val)}
-	//value_ {|val| ref.value_(val).changed(\value)}
+	map {|val| ^spec.constrain(val)}
+	unmap {|val| ^spec.constrain(val)}
 
 	prCreateView {|args|
 		^NumberBox()
