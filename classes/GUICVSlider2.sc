@@ -1,19 +1,23 @@
 GUICVSlider2 : GUICVSlider {
 
+	var container;
 	var userView, slider;
 
 	orientation_ {|aSymbol| slider.orientation_(aSymbol)}
 
-	value {^this.map(slider.value)}
+	asView {^container}
 
 	prCreateView {|args|
+		var lastVal;
+		var controller;
 		var sl= StackLayout().mode_(\stackAll);
-		var view= View().layout_(sl);
 
 		var fontSize= args.atFail(\fontSize, {skin.fontSpecs[1]*skin.fontFactor});
 		var fnt= Font(skin.fontSpecs.first, fontSize);
 		var str= args.atFail(\name, {this.class.name});
 		var gap= args.atFail(\gap, {2});
+
+		container= View().layout_(sl);
 
 		userView= UserView()
 		.acceptsMouse_(false)
@@ -21,6 +25,7 @@ GUICVSlider2 : GUICVSlider {
 			var v, valRect;
 			var w= usr.bounds.width;
 			var h= usr.bounds.height;
+			var w2, h2;
 			Pen.translate(w*0.5, h*0.5);
 			if(slider.orientation.isNil, {
 				slider.orientation= if(w<h, {\vertical}, {\horizontal});
@@ -31,12 +36,14 @@ GUICVSlider2 : GUICVSlider {
 				h= usr.bounds.width;
 			});
 			v= w-slider.thumbSize-1.5*slider.value;
-			valRect= Rect(-0.5*w+gap, -0.5*h+gap, v-(gap*2), h-(gap*2));
+			w2= -0.5*w;
+			h2= -0.5*h;
+			valRect= Rect(w2+gap, h2+gap, v-(gap*2), h-(gap*2));
 			if(valRect.width>0, {
 				Pen.fillColor= skin.hiliteColor;
 				Pen.fillRect(valRect);
 			});
-			Pen.stringCenteredIn(str, Rect.aboutPoint(Point(0, 0), w, h), fnt, skin.fontColor);
+			Pen.stringCenteredIn(str, Rect(w2, h2, w, h), fnt, skin.fontColor);
 		});
 
 		slider= Slider()
@@ -49,19 +56,14 @@ GUICVSlider2 : GUICVSlider {
 		sl.add(userView);
 		sl.add(slider);
 
-		^view
-	}
-
-	prConnect {
-		var lastValue;
-		var controller= SimpleController(ref).put(\value, {|ref|
-			slider.value= this.unmap(ref.value);
-			if(slider.value!=lastValue, {
+		controller= SimpleController(ref).put(\value, {|r|
+			if(r.value!=lastVal, {
 				userView.refresh;
-				lastValue= slider.value;
+				lastVal= r.value;
 			});
 		});
-		slider.action_({|v| ref.value_(this.map(v.value)).changed(\value)});
-		view.onClose_({controller.remove});
+		userView.onClose_({controller.remove});
+
+		^slider
 	}
 }
