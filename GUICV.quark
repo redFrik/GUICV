@@ -1,0 +1,8 @@
+(
+	\name:				"GUICV",
+	\summary:			"Green GUI widgets with controllers",
+	\version:			"0.10",
+	\schelp:			"GUICV",
+	\author: 			"Fredrik Olofsson",
+	\since: 			"2022"
+)

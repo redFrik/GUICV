@@ -1,0 +1,27 @@
+class:: AbstractGUICV
+summary:: abstract class
+categories:: UGens>GUICV
+related:: Classes/GUI
+
+DESCRIPTION::
+
+NOTE::
+This is an abstract class. Do not instantiate - use the subclasses
+::
+
+CLASSTREE:: AbstractGUICV
+
+CLASSMETHODS::
+
+
+INSTANCEMETHODS::
+
+PRIVATE:: initAbstractGUICV
+
+
+
+EXAMPLES::
+
+CODE::
+test
+::
