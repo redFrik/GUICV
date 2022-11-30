@@ -1,9 +1,7 @@
 GUICVNumberBox : AbstractGUICV {
 
-	map {|val| ^spec.constrain(val)}
-	unmap {|val| ^spec.constrain(val)}
-
 	prCreateView {|args|
+		normalized= false;
 		^NumberBox()
 		.palette_(QPalette.auto(Color.clear, skin.foreground).setColor(skin.hiliteColor, \highlight))
 		.background_(skin.foreground)

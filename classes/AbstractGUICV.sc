@@ -3,7 +3,7 @@
 AbstractGUICV : SCViewHolder {
 	classvar <>skin;
 
-	var <ref, <spec;
+	var <ref, <spec, normalized= true;
 
 	*new {|ref, spec, args|
 		^super.new.initAbstractGUICV(ref, spec, args?())
@@ -36,20 +36,32 @@ AbstractGUICV : SCViewHolder {
 		ref.changed(\value);
 	}
 
-	value_ {|val| ref.value_(val).changed(\value)}
-	value {^this.map(view.value)}
-	map {|val| ^spec.map(val)}
-	unmap {|val| ^spec.unmap(val)}
+	value_ {|val|
+		if(normalized, {val= spec.unmap(val)});
+		ref.value_(val).changed(\value);
+	}
+	value {
+		^if(normalized, {spec.map(view.value)}, {view.value})
+	}
 
 	//--private
 
-	prCreateView {|args| ^this.subclassResponsibility(thisMethod)}
-
 	prConnect {
-		var controller= SimpleController(ref).put(\value, {|ref|
-			view.value= this.unmap(ref.value);
+		var lastVal;
+		var controller= SimpleController(ref).put(\value, {|r|
+			var val= spec.map(r.value);
+			if(normalized, {val= spec.unmap(val)});
+			if(val!=lastVal, {view.value= (lastVal= val)});
 		});
-		view.action_({|v| ref.value_(this.map(v.value)).changed(\value)});
+		view.action_({|v|
+			var val= v.value;
+			if(normalized, {val= spec.map(val)});
+			val= spec.unmap(val);
+			if(normalized, {v.value= val});
+			ref.value_(val).changed(\value);
+		});
 		view.onClose_({controller.remove});
 	}
+
+	prCreateView {|args| ^this.subclassResponsibility(thisMethod)}
 }
