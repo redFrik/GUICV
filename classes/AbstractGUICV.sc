@@ -37,12 +37,27 @@ AbstractGUICV : SCViewHolder {
 		ref.changed(\value);
 	}
 
+	get {
+		^spec.unmap(this.value)
+	}
+
+	set {|val|
+		^this.value_(spec.map(val))
+	}
+
+	softSet {|val, within= 0.05|
+		if((val-this.get).abs<=within, {
+			this.set(val);
+			^true
+		});
+		^false
+	}
+
 	value_ {|val|
-		if(normalized, {val= spec.unmap(val)});
-		ref.value_(val).changed(\value);
+		ref.value_(spec.constrain(val)).changed(\value);
 	}
 	value {
-		^if(normalized, {spec.map(view.value)}, {view.value})
+		^ref.value
 	}
 
 	//--private
@@ -51,17 +66,21 @@ AbstractGUICV : SCViewHolder {
 		var lastVal;
 
 		var controller= SimpleController(ref).put(\value, {|r|
-			var val= spec.map(r.value);
+			var val= r.value;
 			if(normalized, {val= spec.unmap(val)});
-			if(val!=lastVal, {view.value_(lastVal= val)});
+			if(val!=lastVal, {
+				view.value_(val);
+				lastVal= val;
+			});
 		});
 
 		view.action_({|v|
-			var val= v.value;
-			if(normalized, {val= spec.map(val)});
-			val= spec.unmap(val);
-			v.value= if(normalized, {val}, {spec.constrain(v.value)});
-			ref.value_(val).changed(\value);
+			if(normalized, {
+				this.set(v.value);
+			}, {
+				this.value_(v.value);
+				v.value= this.value;
+			});
 		});
 
 		view.onClose_({controller.remove});
