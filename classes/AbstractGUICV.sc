@@ -6,7 +6,7 @@ AbstractGUICV : SCViewHolder {
 	var <ref, <spec, normalized= true;
 
 	*new {|ref, spec, args|
-		^super.new.initAbstractGUICV(ref, spec, args?())
+		^super.new.initAbstractGUICV(ref, spec, args ? ())
 	}
 
 	*initClass {
@@ -15,8 +15,8 @@ AbstractGUICV : SCViewHolder {
 			GUI.skins.put(\guiCV, (
 				background: Color.black,
 				foreground: Color.new255(5, 62, 6),
-				fontColor: Color.new255(94, 181, 94),//Color.new255(34, 121, 34),
-				hiliteColor: Color.new255(94, 249, 94),//Color.new255(42, 249, 47),
+				fontColor: Color.new255(94, 181, 94),
+				hiliteColor: Color.new255(94, 249, 94),
 				fontFactor: 1.5,
 				fontSpecs: [Font.defaultMonoFace, 10],
 				height: 74,
@@ -62,7 +62,6 @@ AbstractGUICV : SCViewHolder {
 
 	prConnect {
 		var lastVal;
-
 		var controller= SimpleController(ref).put(\value, {|r|
 			var val= if(normalized, {spec.unmap(r.value)}, {spec.constrain(r.value)});
 			if(val!=lastVal, {

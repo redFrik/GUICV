@@ -13,10 +13,26 @@ CLASSTREE:: AbstractGUICV
 
 CLASSMETHODS::
 
+METHOD:: new
+
+METHOD:: skin
+
 
 INSTANCEMETHODS::
 
-PRIVATE:: initAbstractGUICV
+PRIVATE:: initAbstractGUICV, prConnect, prCreateView
+
+METHOD:: get
+
+METHOD:: set
+
+METHOD:: softSet
+
+METHOD:: ref
+
+METHOD:: spec
+
+METHOD:: value
 
 
 

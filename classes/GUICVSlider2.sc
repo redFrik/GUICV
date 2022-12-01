@@ -10,12 +10,13 @@ GUICVSlider2 : GUICVSlider {
 	prCreateView {|args|
 		var lastVal;
 		var controller;
-		var sl= StackLayout().mode_(\stackAll);
 
 		var fontSize= args.atFail(\fontSize, {skin.fontSpecs[1]*skin.fontFactor});
 		var fnt= Font(skin.fontSpecs.first, fontSize);
 		var str= args.atFail(\name, {this.class.name});
 		var gap= args.atFail(\gap, {2});
+
+		var sl= StackLayout().mode_(\stackAll);
 
 		container= View().layout_(sl);
 
