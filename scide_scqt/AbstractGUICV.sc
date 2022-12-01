@@ -10,22 +10,20 @@ AbstractGUICV : SCViewHolder {
 	}
 
 	*initClass {
-		if(\GUI.asClass.notNil, {
-			Class.initClassTree(Font);
-			GUI.skins.put(\guiCV, (
-				background: Color.black,
-				foreground: Color.new255(5, 62, 6),
-				fontColor: Color.new255(94, 181, 94),
-				hiliteColor: Color.new255(94, 249, 94),
-				fontFactor: 1.5,
-				fontSpecs: [Font.defaultMonoFace, 10],
-				height: 74,
-				width: 48,
-				margins: 4,
-				spacing: 4
-			));
-			skin= GUI.skins.guiCV;
-		});
+		Class.initClassTree(Font);
+		GUI.skins.put(\guiCV, (
+			background: Color.black,
+			foreground: Color.new255(5, 62, 6),
+			fontColor: Color.new255(94, 181, 94),
+			hiliteColor: Color.new255(94, 249, 94),
+			fontFactor: 1.5,
+			fontSpecs: [Font.defaultMonoFace, 10],
+			height: 74,
+			width: 48,
+			margins: 4,
+			spacing: 4
+		));
+		skin= GUI.skins.guiCV;
 	}
 
 	initAbstractGUICV {|argRef, argSpec, args|
