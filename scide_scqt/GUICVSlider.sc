@@ -1,11 +1,14 @@
 GUICVSlider : AbstractGUICV {
 
 	prCreateView {|args|
+		var tmb= args.atFail(\thumbSize, {4});
+
 		^Slider()
-		.palette_(QPalette.auto(skin.hiliteColor, skin.foreground))
+		.palette_(QPalette.auto(Color.clear, skin.foreground))
 		.background_(skin.foreground)
 		.focusColor_(skin.hiliteColor)
 		.knobColor_(skin.hiliteColor)
-		//.thumbSize_(0)
+		.thumbSize_(tmb)
+		.orientation_(\vertical)
 	}
 }
