@@ -26,25 +26,19 @@ GUICVSlider2 : GUICVSlider {
 		.acceptsMouse_(false)
 		.canFocus_(false)
 		.drawFunc_({|usr|
-			var v, valRect;
 			var w= usr.bounds.width;
 			var h= usr.bounds.height;
-			var w2, h2;
 			Pen.translate(w*0.5, h*0.5);
 			if(slider.orientation==\vertical, {
 				Pen.rotate(rot);
 				w= usr.bounds.height;
 				h= usr.bounds.width;
 			});
-			v= w*slider.value;
-			w2= -0.5*w;
-			h2= -0.5*h;
-			valRect= Rect(w2+gap, h2+gap, v.linlin(0, w, 0, w-(gap*2)), h-(gap*2));
-			if(v>0, {
+			if(slider.value.postln>0, {
 				Pen.fillColor= skin.hiliteColor;
-				Pen.fillRect(valRect);
+				Pen.fillRect(Rect(-0.5*w+gap, -0.5*h+gap, slider.value*(w-(gap*2)), h-(gap*2)));
 			});
-			Pen.stringCenteredIn(str, Rect(w2, h2, w, h), fnt, skin.fontColor);
+			Pen.stringCenteredIn(str, Rect(-0.5*w, -0.5*h, w, h), fnt, skin.fontColor);
 		});
 
 		sl.add(userView);
