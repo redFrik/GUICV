@@ -34,7 +34,7 @@ GUICVSlider2 : GUICVSlider {
 				w= usr.bounds.height;
 				h= usr.bounds.width;
 			});
-			if(slider.value.postln>0, {
+			if(slider.value>0, {
 				Pen.fillColor= skin.hiliteColor;
 				Pen.fillRect(Rect(-0.5*w+gap, -0.5*h+gap, slider.value*(w-(gap*2)), h-(gap*2)));
 			});

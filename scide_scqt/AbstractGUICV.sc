@@ -5,8 +5,8 @@ AbstractGUICV : SCViewHolder {
 
 	var <ref, <spec, normalized= true;
 
-	*new {|ref, spec, args|
-		^super.new.initAbstractGUICV(ref, spec, args ? ())
+	*new {|ref, spec, args, update= true|
+		^super.new.initAbstractGUICV(ref, spec, args ? (), update)
 	}
 
 	*initClass {
@@ -26,13 +26,15 @@ AbstractGUICV : SCViewHolder {
 		skin= GUI.skins.guiCV;
 	}
 
-	initAbstractGUICV {|argRef, argSpec, args|
+	initAbstractGUICV {|argRef, argSpec, args, update|
 		ref= argRef ? Ref(0);
 		spec= argSpec.asSpec;
 		this.view_(this.prCreateView(args.asDict));
 		this.prConnect;
 		view.step= spec.step;
-		ref.changed(\value);
+		if(update, {
+			ref.changed(\value);
+		});
 	}
 
 	get {
