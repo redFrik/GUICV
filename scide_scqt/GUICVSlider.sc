@@ -8,7 +8,8 @@ GUICVSlider : AbstractGUICV {
 		.background_(skin.foreground)
 		.focusColor_(skin.hiliteColor)
 		.knobColor_(skin.hiliteColor)
-		.thumbSize_(tmb)
+		.minSize_(Size(skin.minWidth, skin.minHeight))
 		.orientation_(\vertical)
+		.thumbSize_(tmb)
 	}
 }

@@ -19,6 +19,8 @@ AbstractGUICV : SCViewHolder {
 			fontFactor: 1.5,
 			fontSpecs: [Font.defaultMonoFace, 10],
 			height: 74,
+			minHeight: 30,
+			minWidth: 20,
 			width: 48,
 			margins: 4,
 			spacing: 4
