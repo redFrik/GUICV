@@ -3,7 +3,8 @@
 AbstractGUICV : SCViewHolder {
 	classvar <>skin;
 
-	var <ref, <spec, normalized= true;
+	var <ref, <spec;
+	var normalized= true;  //unmap or constrain spec. e.g. GUICVNumberBox
 
 	*new {|ref, spec, args, update= true|
 		^super.new.initAbstractGUICV(ref, spec, args ? (), update)
@@ -34,9 +35,7 @@ AbstractGUICV : SCViewHolder {
 		this.view_(this.prCreateView(args.asDict));
 		this.prConnect;
 		view.step= spec.step;
-		if(update, {
-			ref.changed(\value);
-		});
+		if(update, {ref.changed(\value)});
 	}
 
 	get {
@@ -64,22 +63,19 @@ AbstractGUICV : SCViewHolder {
 
 	prConnect {
 		var lastVal;
-		var controller= SimpleController(ref).put(\value, {|r|
-			var val= if(normalized, {spec.unmap(r.value)}, {spec.constrain(r.value)});
-			if(val!=lastVal, {
-				view.value_(val);
-				lastVal= val;
+		var controller= SimpleController(ref);
+		if(normalized, {
+			controller.put(\value, {|r|
+				var val= spec.unmap(r.value);
+				if(val!=lastVal, {view.value_(val); lastVal= val});
 			});
-		});
-
-		view.action_({|v|
-			if(normalized, {
-				this.set(v.value);
-				v.value= this.get;
-			}, {
-				this.value_(v.value);
-				v.value= this.value;
+			view.action_({|v| this.set(v.value); v.value= this.get});
+		}, {
+			controller.put(\value, {|r|
+				var val= spec.constrain(r.value);
+				if(val!=lastVal, {view.value_(val); lastVal= val});
 			});
+			view.action_({|v| this.value_(v.value); v.value= this.value});
 		});
 
 		view.onClose_({controller.remove});
