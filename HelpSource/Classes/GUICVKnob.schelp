@@ -1,0 +1,19 @@
+CLASS:: GUICVKnob
+SUMMARY:: a Knob
+CATEGORIES:: Green
+RELATED:: Overviews/GUICVOverview, Classes/Knob
+
+
+DESCRIPTION::
+
+
+INSTANCEMETHODS::
+
+PRIVATE:: prCreateView
+
+
+EXAMPLES::
+
+CODE::
+test
+::

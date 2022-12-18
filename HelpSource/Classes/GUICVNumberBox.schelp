@@ -1,0 +1,19 @@
+CLASS:: GUICVNumberBox
+SUMMARY:: a NumberBox
+CATEGORIES:: Green
+RELATED:: Overviews/GUICVOverview, Classes/NumberBox
+
+
+DESCRIPTION::
+
+
+INSTANCEMETHODS::
+
+PRIVATE:: prCreateView
+
+
+EXAMPLES::
+
+CODE::
+test
+::

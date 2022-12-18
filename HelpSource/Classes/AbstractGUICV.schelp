@@ -1,7 +1,8 @@
-class:: AbstractGUICV
-summary:: abstract class
-categories:: UGens>GUICV
-related:: Classes/GUI
+CLASS:: AbstractGUICV
+SUMMARY:: abstract class
+CATEGORIES:: Green
+RELATED:: Overviews/GUICVOverview
+
 
 DESCRIPTION::
 
@@ -9,11 +10,23 @@ NOTE::
 This is an abstract class. Do not instantiate - use the subclasses
 ::
 
-CLASSTREE:: AbstractGUICV
 
 CLASSMETHODS::
 
 METHOD:: new
+Create a new widget.
+
+ARGUMENT:: ref
+A LINK::Classes/Ref:: instance. If not given, one will be created.
+
+ARGUMENT:: spec
+A LINK::Classes/ControlSpec:: instance. If not given, a default one will be created using CODE::nil.asSpec::.
+
+ARGUMENT:: args
+Optional additional arguments that will be passed to the widget class when created. Can be a keyValuePair array or a dictionary. An example is \thumbSize for the sliders.
+
+ARGUMENT:: update
+Flag used in special cases. An example is when several widgets are linked to the same ref and one want to avoid calling the action function on one or more at initialisation.
 
 METHOD:: skin
 
@@ -22,22 +35,29 @@ INSTANCEMETHODS::
 
 PRIVATE:: initAbstractGUICV, prConnect, prCreateView
 
-METHOD:: get
-
-METHOD:: set
-
-METHOD:: softSet
-
 METHOD:: ref
+The LINK::Classes/Ref::.
 
 METHOD:: spec
+The LINK::Classes/ControlSpec::.
 
 METHOD:: value
+Get or set the current widget value. This value will be constrained to the spec.
 
+METHOD:: get
+Get the normalised value (using spec.unmap).
 
+METHOD:: set
+Set the normalised value (using spec.map).
 
-EXAMPLES::
+ARGUMENT:: val
+A LINK::Classes/Float:: between 0.0 and 1.0
 
-CODE::
-test
-::
+METHOD:: softSet
+If val is within range of the current widget value, set the value (using spec.map). Both values normalised. Useful for MIDI controllers.
+
+ARGUMENT:: val
+A LINK::Classes/Float:: between 0.0 and 1.0
+
+ARGUMENT:: within
+A LINK::Classes/Float:: between 0.0 and 1.0 specifying a +/- range.

@@ -1,0 +1,19 @@
+CLASS:: GUICVSliderLabel
+SUMMARY:: a Slider with a label
+CATEGORIES:: Green
+RELATED:: Overviews/GUICVOverview, Classes/Slider
+
+
+DESCRIPTION::
+
+
+INSTANCEMETHODS::
+
+PRIVATE:: prCreateView
+
+
+EXAMPLES::
+
+CODE::
+test
+::

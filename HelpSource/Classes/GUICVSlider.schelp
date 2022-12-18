@@ -1,0 +1,19 @@
+CLASS:: GUICVSlider
+SUMMARY:: a Slider
+CATEGORIES:: Green
+RELATED:: Overviews/GUICVOverview, Classes/Slider
+
+
+DESCRIPTION::
+
+
+INSTANCEMETHODS::
+
+PRIVATE:: prCreateView
+
+
+EXAMPLES::
+
+CODE::
+test
+::
