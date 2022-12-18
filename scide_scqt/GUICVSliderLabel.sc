@@ -1,4 +1,4 @@
-GUICVSlider2 : GUICVSlider {
+GUICVSliderLabel : GUICVSlider {
 
 	var container;
 	var userView, slider;
