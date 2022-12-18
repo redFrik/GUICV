@@ -61,3 +61,16 @@ A LINK::Classes/Float:: between 0.0 and 1.0
 
 ARGUMENT:: within
 A LINK::Classes/Float:: between 0.0 and 1.0 specifying a +/- range.
+
+RETURNS:: LINK::Classes/True:: if current widget value was updated, LINK::Classes/False:: if not (out of range).
+
+EXAMPLES::
+
+CODE::
+//MIDI ControlChange 1 with softSet
+(
+a= GUICVKnob().front;
+MIDIIn.connectAll;
+MIDIFunc.cc({|val| {a.softSet(val.postln/127, 0.1)}.defer}, 1);
+)
+::

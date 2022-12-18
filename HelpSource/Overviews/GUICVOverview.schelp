@@ -4,6 +4,8 @@ CATEGORIES:: Green
 
 GUI widgets with colour theme and built-in controllers (M-V-C). Also these widgets filter out repeated values i.e. they only redraw when needed, so they are more efficient than the built-in ones.
 
+Based on redGUI in the redSys quark.
+
 CLASSTREE:: AbstractGUICV
 
 EXAMPLES::

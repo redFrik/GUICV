@@ -15,5 +15,11 @@ PRIVATE:: prCreateView
 EXAMPLES::
 
 CODE::
-test
+View().layout_(VLayout(a= GUICVSliderLabel(spec:\freq.asSpec, args:(string: "Hz")))).front;
+a.value= 500;
+a.value= -5;
+a.value;  //constrained by spec to 20.0
+a.get;  //normalised
+a.set(0.5);  //normalised
+a.close;
 ::
