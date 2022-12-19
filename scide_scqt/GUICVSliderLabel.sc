@@ -9,7 +9,7 @@ GUICVSliderLabel : GUICVSlider {
 			args.atFail(\fontName, {skin.fontSpecs.first}),
 			args.atFail(\fontSize, {skin.fontSpecs[1]})
 		);
-		var gap= args.atFail(\fillGap, {2});
+		var gap= args.atFail(\fillGap, {4});
 		var rot= args.atFail(\stringRotation, {1.5pi});
 		var str= args.atFail(\string, {this.class.name});
 
@@ -18,7 +18,7 @@ GUICVSliderLabel : GUICVSlider {
 
 		var sl= StackLayout().mode_(\stackAll);
 
-		var slider= super.prCreateView(args);
+		var slider= super.prCreateView(args).knobColor_(Color.clear);
 
 		var userView= UserView()
 		.acceptsMouse_(false)
@@ -33,7 +33,7 @@ GUICVSliderLabel : GUICVSlider {
 				h= usr.bounds.width;
 			});
 			if(slider.value>0, {
-				Pen.fillColor= skin.hiliteColor;
+				Pen.fillColor= skin.highlight;
 				Pen.fillRect(Rect(-0.5*w+gap, -0.5*h+gap, slider.value*(w-(gap*2)), h-(gap*2)));
 			});
 			Pen.stringCenteredIn(str, Rect(-0.5*w, -0.5*h, w, h), fnt, skin.fontColor);

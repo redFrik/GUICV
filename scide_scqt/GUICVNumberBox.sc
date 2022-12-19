@@ -2,12 +2,13 @@ GUICVNumberBox : AbstractGUICV {
 
 	prCreateView {|args|
 		normalized= false;
+
 		^NumberBox()
-		.palette_(QPalette.auto(Color.clear, skin.foreground).setColor(skin.hiliteColor, \highlight))
-		.background_(skin.foreground)
+		.fixedHeight_(skin.buttonHeight)
 		.font_(Font(*skin.fontSpecs))
-		.minSize_(Size(skin.minWidth, skin.fontSpecs.last*1.2))
+		.maxWidth_(skin.knobWidth)
+		.palette_(skin.palette)
 		.normalColor_(skin.fontColor)
-		.typingColor_(skin.hiliteColor)
+		.typingColor_(skin.highlight)
 	}
 }

@@ -4,12 +4,12 @@ GUICVSlider : AbstractGUICV {
 		var tmb= args.atFail(\thumbSize, {4});
 
 		^Slider()
-		.palette_(QPalette.auto(Color.clear, skin.foreground))
 		.background_(skin.foreground)
-		.focusColor_(skin.hiliteColor)
-		.knobColor_(skin.hiliteColor)
-		.minSize_(Size(skin.minWidth, skin.minHeight))
+		.focusColor_(skin.highlight)
+		.knobColor_(skin.highlight)
+		.minSize_(Size(skin.sliderWidth, skin.sliderHeight))
 		.orientation_(\vertical)
+		.palette_(skin.palette)
 		.thumbSize_(tmb)
 	}
 }

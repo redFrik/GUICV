@@ -2,9 +2,10 @@ GUICVKnob : AbstractGUICV {
 
 	prCreateView {|args|
 		^Knob()
-		.palette_(QPalette.auto(Color.clear, skin.foreground))
-		.color_([skin.foreground, skin.hiliteColor, skin.foreground, skin.hiliteColor])
-		.focusColor_(skin.hiliteColor)
-		.minSize_(Size(skin.minHeight, skin.minHeight))
+		.focusColor_(skin.highlight)
+		.palette_(skin.palette)  //must set palette before color
+		.color_([skin.foreground, skin.highlight, skin.foreground, skin.highlight])
+		.minHeight_(skin.knobWidth)
+		.minWidth_(skin.knobWidth)
 	}
 }

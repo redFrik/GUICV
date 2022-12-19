@@ -14,19 +14,26 @@ AbstractGUICV : SCViewHolder {
 		Class.initClassTree(Font);
 		GUI.skins.put(\guiCV, (
 			background: Color.black,
-			foreground: Color.new255(5, 62, 6),
+			buttonHeight: 15,
 			fontColor: Color.new255(94, 181, 94),
-			hiliteColor: Color.new255(94, 249, 94),
-			fontFactor: 1.5,
 			fontSpecs: [Font.defaultMonoFace, 10],
-			height: 74,
-			minHeight: 30,
-			minWidth: 20,
-			width: 48,
-			margins: 4,
+			foreground: Color.new255(5, 62, 6),
+			highlight: Color.new255(94, 249, 94),
+			knobWidth: 45,
+			margin: Point(4, 4),
+			sliderHeight: 75,
+			sliderWidth: 20,
 			spacing: 4
 		));
 		skin= GUI.skins.guiCV;
+		skin.palette= QPalette.auto(Color.clear, skin.foreground)
+		.setColor(skin.foreground, \base)
+		.setColor(skin.foreground, \button)
+		.setColor(skin.fontColor, \buttonText)
+		.setColor(skin.highlight, \highlight)
+		.setColor(skin.background, \highlightText)
+		.setColor(skin.foreground, \window)
+		.setColor(skin.fontColor, \windowText);
 	}
 
 	initAbstractGUICV {|argRef, argSpec, args, update|
