@@ -15,7 +15,7 @@ PRIVATE:: prCreateView
 EXAMPLES::
 
 CODE::
-a= GUICVKnob(spec:\freq.asSpec).front;
+a= GUICVNumberBox(spec:\freq.asSpec).front;
 a.value= 500;
 a.value= -5;
 a.value;  //constrained by spec to 20.0
