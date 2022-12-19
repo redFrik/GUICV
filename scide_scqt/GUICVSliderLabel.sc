@@ -1,7 +1,6 @@
 GUICVSliderLabel : GUICVSlider {
 
 	var container;
-	var userView, slider;
 
 	asView {^container}
 
@@ -18,11 +17,10 @@ GUICVSliderLabel : GUICVSlider {
 		var controller;
 
 		var sl= StackLayout().mode_(\stackAll);
-		container= View().layout_(sl);
 
-		slider= super.prCreateView(args);
+		var slider= super.prCreateView(args);
 
-		userView= UserView()
+		var userView= UserView()
 		.acceptsMouse_(false)
 		.canFocus_(false)
 		.drawFunc_({|usr|
@@ -43,6 +41,7 @@ GUICVSliderLabel : GUICVSlider {
 
 		sl.add(userView);
 		sl.add(slider);
+		container= View().layout_(sl);
 
 		controller= SimpleController(ref).put(\value, {|r|
 			if(r.value!=lastVal, {
