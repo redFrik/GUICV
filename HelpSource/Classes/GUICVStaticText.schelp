@@ -1,0 +1,21 @@
+CLASS:: GUICVStaticText
+SUMMARY:: a StaticText
+CATEGORIES:: Green
+RELATED:: Overviews/GUICVOverview, Classes/StaticText
+
+
+DESCRIPTION::
+A bit special. Does not use a Ref like the other classes.
+
+INSTANCEMETHODS::
+
+PRIVATE:: initAbstractGUICV, prCreateView
+
+
+EXAMPLES::
+
+CODE::
+a= GUICVStaticText(args:(string: "hej")).front;
+a.value= 500;
+a.close;
+::
