@@ -3,10 +3,11 @@
 //related: AbstractGUICV
 
 GUICV {
+	classvar skin;
 
 	*initClass {
 
-		var skin= (
+		skin= (
 			background: Color.black,
 			buttonHeight: 15,
 			fontColor: Color.new255(94, 181, 94),
@@ -32,7 +33,7 @@ GUICV {
 		GUI.skins.put(\guiCV, skin);
 	}
 
-	*button {|skin|
+	*button {
 		^Button()
 		.palette_(skin.palette)
 		.fixedHeight_(skin.buttonHeight)
@@ -40,7 +41,7 @@ GUICV {
 		.maxWidth_(skin.knobWidth)
 	}
 
-	*knob {|skin|
+	*knob {
 		^Knob()
 		.palette_(skin.palette)
 		.focusColor_(skin.highlight)
@@ -49,7 +50,7 @@ GUICV {
 		.minWidth_(skin.knobWidth)
 	}
 
-	*numberBox {|skin|
+	*numberBox {
 		^NumberBox()
 		.palette_(skin.palette)
 		.fixedHeight_(skin.buttonHeight)
@@ -59,7 +60,7 @@ GUICV {
 		.typingColor_(skin.highlight)
 	}
 
-	*popUpMenu {|skin|
+	*popUpMenu {
 		^PopUpMenu()
 		.palette_(skin.palette)
 		.fixedHeight_(skin.buttonHeight)
@@ -67,7 +68,7 @@ GUICV {
 		.minWidth_(skin.knobWidth)
 	}
 
-	*slider {|skin|
+	*slider {
 		^Slider()
 		.palette_(skin.palette)
 		.background_(skin.foreground)
@@ -78,7 +79,7 @@ GUICV {
 		.thumbSize_(4)
 	}
 
-	*staticText {|skin|
+	*staticText {
 		^StaticText()
 		.palette_(skin.palette)
 		.font_(Font(*skin.fontSpecs))

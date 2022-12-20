@@ -4,7 +4,8 @@ GUICVSliderLabel : GUICVSlider {
 
 	asView {^container}
 
-	prCreateView {|args, skin|
+	prCreateView {|args|
+		var skin= GUI.skins.guiCV;
 		var fnt= Font(
 			args.atFail(\fontName, {skin.fontSpecs[0]}),
 			args.atFail(\fontSize, {skin.fontSpecs[1]})
@@ -18,7 +19,7 @@ GUICVSliderLabel : GUICVSlider {
 
 		var sl= StackLayout().mode_(\stackAll);
 
-		var slider= super.prCreateView(args, skin).knobColor_(Color.clear);
+		var slider= super.prCreateView(args).knobColor_(Color.clear);
 
 		var userView= UserView()
 		.acceptsMouse_(false)

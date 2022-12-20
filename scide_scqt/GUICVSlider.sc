@@ -1,7 +1,7 @@
 GUICVSlider : AbstractGUICV {
 
-	prCreateView {|args, skin|
-		var view= GUICV.slider(skin);
+	prCreateView {|args|
+		var view= GUICV.slider;
 		var tmb= args[\thumbSize];
 		if(tmb.notNil, {view.thumbSize_(tmb)});
 		^view
