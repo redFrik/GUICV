@@ -53,9 +53,8 @@ GUICV {
 	*numberBox {
 		^NumberBox()
 		.palette_(skin.palette)
-		.fixedHeight_(skin.buttonHeight)
+		.fixedSize_(Size(skin.knobWidth, skin.buttonHeight))
 		.font_(Font(*skin.fontSpecs))
-		.minWidth_(skin.knobWidth)
 		.normalColor_(skin.fontColor)
 		.typingColor_(skin.highlight)
 	}
