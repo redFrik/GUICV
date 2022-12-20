@@ -1,6 +1,6 @@
 GUICVSlider : AbstractGUICV {
 
-	prCreateView {|args|
+	prCreateView {|args, skin|
 		var tmb= args.atFail(\thumbSize, {4});
 
 		^Slider()

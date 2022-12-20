@@ -4,9 +4,9 @@ GUICVSliderLabel : GUICVSlider {
 
 	asView {^container}
 
-	prCreateView {|args|
+	prCreateView {|args, skin|
 		var fnt= Font(
-			args.atFail(\fontName, {skin.fontSpecs.first}),
+			args.atFail(\fontName, {skin.fontSpecs[0]}),
 			args.atFail(\fontSize, {skin.fontSpecs[1]})
 		);
 		var gap= args.atFail(\fillGap, {4});
@@ -18,7 +18,7 @@ GUICVSliderLabel : GUICVSlider {
 
 		var sl= StackLayout().mode_(\stackAll);
 
-		var slider= super.prCreateView(args).knobColor_(Color.clear);
+		var slider= super.prCreateView(args, skin).knobColor_(Color.clear);
 
 		var userView= UserView()
 		.acceptsMouse_(false)
@@ -41,7 +41,7 @@ GUICVSliderLabel : GUICVSlider {
 
 		sl.add(userView);
 		sl.add(slider);
-		container= View().layout_(sl);
+		container= View().layout_(sl).background_(skin.background);
 
 		controller= SimpleController(ref).put(\value, {|r|
 			if(r.value!=lastVal, {

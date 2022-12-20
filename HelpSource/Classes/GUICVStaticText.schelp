@@ -1,7 +1,7 @@
 CLASS:: GUICVStaticText
 SUMMARY:: a StaticText
 CATEGORIES:: Green
-RELATED:: Overviews/GUICVOverview, Classes/StaticText
+RELATED:: Classes/GUICV, Classes/StaticText
 
 
 DESCRIPTION::

@@ -1,7 +1,7 @@
 CLASS:: GUICVNumberBox
 SUMMARY:: a NumberBox
 CATEGORIES:: Green
-RELATED:: Overviews/GUICVOverview, Classes/NumberBox
+RELATED:: Classes/GUICV, Classes/NumberBox
 
 
 DESCRIPTION::

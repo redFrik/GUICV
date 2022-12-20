@@ -1,7 +1,7 @@
 CLASS:: GUICVKnob
 SUMMARY:: a Knob
 CATEGORIES:: Green
-RELATED:: Overviews/GUICVOverview, Classes/Knob
+RELATED:: Classes/GUICV, Classes/Knob
 
 
 DESCRIPTION::

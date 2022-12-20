@@ -1,7 +1,7 @@
 CLASS:: AbstractGUICV
 SUMMARY:: abstract class
 CATEGORIES:: Green
-RELATED:: Overviews/GUICVOverview
+RELATED:: Classes/GUICV
 
 
 DESCRIPTION::
@@ -28,7 +28,8 @@ Optional additional arguments that will be passed to the widget class when creat
 ARGUMENT:: update
 Flag used in special cases. An example is when several widgets are linked to the same ref and one want to avoid calling the action function on one or more at initialisation.
 
-METHOD:: skin
+ARGUMENT:: skin
+If not specified then CODE::GUI.skins.guiCV:: will be used.
 
 
 INSTANCEMETHODS::

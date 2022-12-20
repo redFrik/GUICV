@@ -1,6 +1,6 @@
 GUICVKnob : AbstractGUICV {
 
-	prCreateView {|args|
+	prCreateView {|args, skin|
 		^Knob()
 		.focusColor_(skin.highlight)
 		.palette_(skin.palette)  //must set palette before color
