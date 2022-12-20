@@ -23,12 +23,8 @@ AbstractGUICV : SCViewHolder {
 	close {this.asView.close}
 	front {this.asView.front}
 
-	get {
-		^spec.unmap(this.value)
-	}
-	set {|val|
-		^this.value_(spec.map(val))
-	}
+	get {^spec.unmap(this.value)}
+	set {|val| ^this.value_(spec.map(val))}
 	softSet {|val, within= 0.05|
 		if((val-this.get).abs<=within, {
 			this.set(val);
@@ -37,12 +33,8 @@ AbstractGUICV : SCViewHolder {
 		^false
 	}
 
-	value_ {|val|
-		ref.value_(spec.constrain(val)).changed(\value);
-	}
-	value {
-		^ref.value
-	}
+	value_ {|val| ref.value_(spec.constrain(val)).changed(\value)}
+	value {^ref.value}
 
 	//--private
 

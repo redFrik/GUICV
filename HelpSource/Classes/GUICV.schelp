@@ -9,6 +9,15 @@ Based on redGUI in the redSys quark.
 
 CLASSTREE:: AbstractGUICV
 
+CLASSMETHODS::
+
+METHOD:: button, knob, numberBox, popUpMenu, slider, staticText
+
+ARGUMENT:: skin
+
+If not specified then CODE::GUI.skins.guiCV:: will be used.
+
+
 EXAMPLES::
 
 CODE::

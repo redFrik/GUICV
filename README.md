@@ -8,7 +8,7 @@ Based on redGUI in the [redSys](https://github.com/redFrik/redSys) quark.
 
 ## Requirements
 
-[SuperCollider](https://supercollider.github.io) version 3.10 or newer running under macOS, Linux or Windows.
+[SuperCollider](https://supercollider.github.io) version 3.9 or newer running under macOS, Linux or Windows.
 
 ## Dependancies
 
@@ -18,8 +18,7 @@ Based on redGUI in the [redSys](https://github.com/redFrik/redSys) quark.
 
 ```supercollider
 //install
-Quarks.fetchDirectory
 Quarks.install("https://github.com/redFrik/GUICV")
 //recompile
-Quarks.installed.detect{|x| x.name=="GUICV"}.help
+"GUICV".help
 ```
