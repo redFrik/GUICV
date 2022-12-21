@@ -15,7 +15,8 @@ AbstractGUICV : SCViewHolder {
 		ref= argRef ? Ref(0);
 		spec= argSpec.asSpec;
 		args= (args ? ()).asDict;
-		this.view= this.prCreateView(parent, bounds, args);
+		view= this.prCreateView(parent, bounds, args);
+		this.prDkey;
 		this.prConnect;
 		this.step= spec.step;
 		if(update, {ref.changed(\value)});
@@ -61,5 +62,12 @@ AbstractGUICV : SCViewHolder {
 
 	prCreateView {|parent, bounds, args|
 		^this.subclassResponsibility(thisMethod)
+	}
+
+	prDkey {  //key D for spec default
+		view.keyDownAction_({|v ...args|
+			v.defaultKeyDownAction(*args);
+			if(args[0]==$d, {this.value_(spec.default)});
+		});
 	}
 }

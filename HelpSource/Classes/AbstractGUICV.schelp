@@ -10,6 +10,8 @@ NOTE::
 This is an abstract class. Do not instantiate - use the subclasses
 ::
 
+These widgets use key CODE::D:: for jumping to the given spec's default value. The usual defaultKeyDownAction keys still work (CODE::R:: for random, CODE::X:: maximum, CODE::N:: minimum, CODE::C:: center + arrow keys).
+
 
 CLASSMETHODS::
 
@@ -38,7 +40,7 @@ An example of when the update flag is needed to be false is when several widgets
 
 INSTANCEMETHODS::
 
-PRIVATE:: initAbstractGUICV, prConnect, prCreateView
+PRIVATE:: initAbstractGUICV, prConnect, prCreateView, prDkey
 
 METHOD:: ref
 The LINK::Classes/Ref::.
