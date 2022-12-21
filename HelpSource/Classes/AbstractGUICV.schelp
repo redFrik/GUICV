@@ -14,19 +14,26 @@ This is an abstract class. Do not instantiate - use the subclasses
 CLASSMETHODS::
 
 METHOD:: new
-Create a new widget.
+Create a new widget. The widget works like any other LINK::Classes/View:: and be inserted into a LINK::Classes/Layout:: or brought forward using CODE::.front::.
+
+ARGUMENT:: parent
+
+ARGUMENT:: bounds
 
 ARGUMENT:: ref
-A LINK::Classes/Ref:: instance. If not given, one will be created.
+A LINK::Classes/Ref:: instance. If not given, one will be created and its value will be CODE::0::.
 
 ARGUMENT:: spec
-A LINK::Classes/ControlSpec:: instance. If not given, a default one will be created using CODE::nil.asSpec::.
+A LINK::Classes/ControlSpec:: instance. If not given, one will be created using CODE::nil.asSpec::.
 
 ARGUMENT:: args
-Optional additional arguments that will be passed to the widget class when created. Can be a keyValuePair array or a dictionary. An example is \thumbSize for the sliders.
+Optional additional arguments that will be passed to the widget class when created. Can be a keyValuePair array or a dictionary. An example is CODE::\thumbSize:: for sliders.
 
 ARGUMENT:: update
-Flag used in special cases. An example is when several widgets are linked to the same ref and one want to avoid calling the action function on one or more at initialisation.
+Flag for blocking value initialisation. Seldom used.
+
+DISCUSSION::
+An example of when the update flag is needed to be false is when several widgets are linked to the same ref and one want to avoid calling the action function at initialisation.
 
 
 INSTANCEMETHODS::
@@ -40,35 +47,109 @@ METHOD:: spec
 The LINK::Classes/ControlSpec::.
 
 METHOD:: value
-Get or set the current widget value. This value will be constrained to the spec.
+Get or set the current widget value. This value will be constrained by the spec.
 
 METHOD:: get
-Get the normalised value (using spec.unmap).
+Get the normalised value (using CODE::spec.unmap::).
 
 METHOD:: set
-Set the normalised value (using spec.map).
+Set the normalised value (using CODE::spec.map::).
 
 ARGUMENT:: val
 A LINK::Classes/Float:: between 0.0 and 1.0
 
 METHOD:: softSet
-If val is within range of the current widget value, set the value (using spec.map). Both values normalised. Useful for MIDI controllers.
+If val is within range of the current widget value, set the widget value. Useful for MIDI controllers.
 
 ARGUMENT:: val
-A LINK::Classes/Float:: between 0.0 and 1.0
+A normalised LINK::Classes/Float:: (between 0.0 and 1.0).
 
 ARGUMENT:: within
-A LINK::Classes/Float:: between 0.0 and 1.0 specifying a +/- range.
+A LINK::Classes/Float:: specifying a range (+/-).
 
 RETURNS:: LINK::Classes/True:: if current widget value was updated, LINK::Classes/False:: if not (out of range).
 
+METHOD:: front
+Create a LINK::Classes/Window:: with the widget.
+
+METHOD:: close
+Close widget and remove controllers.
+
+
 EXAMPLES::
 
+SUBSECTION:: basic example
+
 CODE::
-//MIDI ControlChange 1 with softSet
+//code <-> gui
+(
+a= GUICVKnob().front;
+)
+a.value;  //click the knob and a.value will be different
+a.value= 1.0.rand;  //or set the knob's value from code
+::
+
+SUBSECTION:: linked widgets
+
+CODE::
+//two views using the same reference
+(
+var r= Ref(0.5);
+View(bounds:100@200).layout_(VLayout(
+	GUICVKnob(ref:r),
+	GUICVSlider(ref:r)
+)).front
+)
+
+//more views (without Layout Management)
+(
+var w, a, b, c;
+w= Window("test").front;
+a= GUICVKnob(w, Rect(100, 100, 100, 100));
+b= GUICVNumberBox(w, 100@20, a.ref)
+.scroll_step_(0.01);
+c= GUICVSliderLabel(w, Rect(10, 50, 300, 10), a.ref, args:(string: \test))
+.orientation_(\horizontal);
+)
+::
+
+SUBSECTION:: softSet
+
+CODE::
+//--MIDI ControlChange (#1) with softSet
 (
 a= GUICVKnob().front;
 MIDIIn.connectAll;
 MIDIFunc.cc({|val| {a.softSet(val.postln/127, 0.1)}.defer}, 1);
 )
+//send CC#1 and the knob should change
+
+//same but with two views linked to one midi controller
+(
+View().layout_(VLayout(
+	a= GUICVKnob(),
+	b= GUICVNumberBox(ref:a.ref)
+)).front;
+MIDIIn.connectAll;
+MIDIFunc.cc({|val| {a.softSet(val.postln/127, 0.1)}.defer}, 1);
+);
+a.value= 0.25;
+b.value= 0.5;
+a.value;
+
+//same but with control specs
+//note: softSet value still needs to be normalised
+(
+var r= Ref(16);
+View().layout_(VLayout(
+	a= GUICVKnob(ref:r, spec:ControlSpec(0, 127, 'lin', 1)),
+	b= GUICVNumberBox(ref:r, spec:ControlSpec(0, 127, 'lin', 1))
+)).front;
+MIDIIn.connectAll;
+MIDIFunc.cc({|val| {a.softSet(val.postln/127, 0.1)}.defer}, 1);
+);
+a.value= 32;
+a.get;
+a.set(0.5);
+a.value;
 ::

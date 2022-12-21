@@ -2,9 +2,11 @@ a [Quark](https://supercollider-quarks.github.io/quarks/) for [SuperCollider](ht
 
 # GUICV
 
-GUI widgets with colour theme and built-in controllers (M-V-C). Also these widgets filter out repeated values i.e. they only redraw when needed, so they are more efficient than the built-in ones.
+Some GUI widgets with a colour theme and built-in controllers (M-V-C).
 
-Based on redGUI in the [redSys](https://github.com/redFrik/redSys) quark.
+These widgets are also efficient as they filter out repeated values and only redraw when needed.
+
+Mainly written for use in the [GFX](https://github.com/redFrik/GFX) quark. Based on redGUI in the [redSys](https://github.com/redFrik/redSys) quark.
 
 ## Requirements
 
@@ -12,7 +14,7 @@ Based on redGUI in the [redSys](https://github.com/redFrik/redSys) quark.
 
 ## Dependancies
 
-* **QtGUI** - which means it will run on most SuperCollider installs except "_headless_".
+* **QtGUI** - i.e. will run on most SuperCollider installs except "_headless_".
 
 ## Installation
 

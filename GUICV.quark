@@ -1,6 +1,6 @@
 (
 	name: "GUICV",
-	summary: "Green GUI M-V-C widgets",
+	summary: "Green GUI widgets with built-in controllers",
 	author: "Fredrik Olofsson",
 	since: "2022",
 	version: "0.1.0",
