@@ -4,7 +4,7 @@ GUICVSliderLabel : GUICVSlider {
 
 	asView {^container}
 
-	prCreateView {|args|
+	prCreateView {|parent, bounds, args|
 		var skin= GUI.skins.guiCV;
 		var fnt= Font(
 			args.atFail(\fontName, {skin.fontSpecs[0]}),
@@ -19,9 +19,9 @@ GUICVSliderLabel : GUICVSlider {
 
 		var sl= StackLayout().mode_(\stackAll);
 
-		var slider= super.prCreateView(args).knobColor_(Color.clear);
+		var slider= super.prCreateView(parent, bounds, args).knobColor_(Color.clear);
 
-		var userView= UserView()
+		var userView= UserView(parent, bounds)
 		.acceptsMouse_(false)
 		.canFocus_(false)
 		.drawFunc_({|usr|
@@ -42,7 +42,9 @@ GUICVSliderLabel : GUICVSlider {
 
 		sl.add(userView);
 		sl.add(slider);
-		container= View().layout_(sl).background_(skin.background);
+		container= View(parent, bounds).layout_(sl)
+		.background_(skin.background)
+		.resizeToBounds(bounds ?? {Size(skin.sliderWidth, skin.sliderHeight)});
 
 		controller= SimpleController(ref).put(\value, {|r|
 			if(r.value!=lastVal, {

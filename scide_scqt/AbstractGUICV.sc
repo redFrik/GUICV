@@ -7,14 +7,15 @@ AbstractGUICV : SCViewHolder {
 	var <ref, <spec;
 	var normalized= true;  //unmap or constrain spec. e.g. GUICVNumberBox
 
-	*new {|ref, spec, args, update= true|
-		^super.new.initAbstractGUICV(ref, spec, args ? (), update)
+	*new {|parent, bounds, ref, spec, args, update= true|
+		^super.new.initAbstractGUICV(parent, bounds, ref, spec, args, update)
 	}
 
-	initAbstractGUICV {|argRef, argSpec, args, update|
+	initAbstractGUICV {|parent, bounds, argRef, argSpec, args, update|
 		ref= argRef ? Ref(0);
 		spec= argSpec.asSpec;
-		this.view_(this.prCreateView(args.asDict));
+		args= (args ? ()).asDict;
+		this.view= this.prCreateView(parent, bounds, args);
 		this.prConnect;
 		this.step= spec.step;
 		if(update, {ref.changed(\value)});
@@ -58,5 +59,7 @@ AbstractGUICV : SCViewHolder {
 		view.onClose_({controller.remove});
 	}
 
-	prCreateView {|args| ^this.subclassResponsibility(thisMethod)}
+	prCreateView {|parent, bounds, args|
+		^this.subclassResponsibility(thisMethod)
+	}
 }

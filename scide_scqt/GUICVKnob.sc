@@ -1,6 +1,6 @@
 GUICVKnob : AbstractGUICV {
 
-	prCreateView {|args|
-		^GUICV.knob
+	prCreateView {|parent, bounds, args|
+		^GUICV.knob(parent, bounds)
 	}
 }

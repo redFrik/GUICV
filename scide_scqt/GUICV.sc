@@ -33,53 +33,46 @@ GUICV {
 		GUI.skins.put(\guiCV, skin);
 	}
 
-	*button {
-		^Button()
+	*button {|parent, bounds|
+		^Button(parent, bounds)
 		.palette_(skin.palette)
-		.fixedHeight_(skin.buttonHeight)
 		.font_(Font(*skin.fontSpecs))
-		.maxWidth_(skin.knobWidth)
 	}
 
-	*knob {
-		^Knob()
+	*knob {|parent, bounds|
+		^Knob(parent, bounds)
 		.palette_(skin.palette)
 		.focusColor_(skin.highlight)
 		.color_([skin.foreground, skin.highlight, skin.foreground, skin.highlight])
-		.minHeight_(skin.knobWidth)
-		.minWidth_(skin.knobWidth)
 	}
 
-	*numberBox {
-		^NumberBox()
+	*numberBox {|parent, bounds|
+		^NumberBox(parent, bounds)
 		.palette_(skin.palette)
-		.fixedSize_(Size(skin.knobWidth, skin.buttonHeight))
 		.font_(Font(*skin.fontSpecs))
 		.normalColor_(skin.fontColor)
 		.typingColor_(skin.highlight)
 	}
 
-	*popUpMenu {
-		^PopUpMenu()
+	*popUpMenu {|parent, bounds|
+		^PopUpMenu(parent, bounds)
 		.palette_(skin.palette)
-		.fixedHeight_(skin.buttonHeight)
 		.font_(Font(*skin.fontSpecs))
 		.minWidth_(skin.knobWidth)
 	}
 
-	*slider {
-		^Slider()
+	*slider {|parent, bounds|
+		^Slider(parent, bounds)
 		.palette_(skin.palette)
 		.background_(skin.foreground)
 		.focusColor_(skin.highlight)
 		.knobColor_(skin.highlight)
-		.minSize_(Size(skin.sliderWidth, skin.sliderHeight))
 		.orientation_(\vertical)
 		.thumbSize_(4)
 	}
 
-	*staticText {
-		^StaticText()
+	*staticText {|parent, bounds|
+		^StaticText(parent, bounds)
 		.palette_(skin.palette)
 		.font_(Font(*skin.fontSpecs))
 	}
