@@ -36,6 +36,7 @@ GUICV {
 	*button {|parent, bounds|
 		^Button(parent, bounds)
 		.palette_(skin.palette)
+		.focusColor_(skin.highlight)
 		.font_(Font(*skin.fontSpecs))
 	}
 
