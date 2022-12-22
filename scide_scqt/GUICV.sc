@@ -23,6 +23,7 @@ GUICV {
 
 		skin.palette= QPalette.auto(Color.clear, skin.foreground)
 		.setColor(skin.foreground, \base)
+		.setColor(skin.fontColor, \baseText)
 		.setColor(skin.foreground, \button)
 		.setColor(skin.fontColor, \buttonText)
 		.setColor(skin.highlight, \highlight)
