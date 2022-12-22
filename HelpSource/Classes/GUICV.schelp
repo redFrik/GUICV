@@ -1,16 +1,62 @@
 CLASS:: GUICV
-SUMMARY:: GUICV base
+SUMMARY:: GUICV base class
 CATEGORIES:: Green
 RELATED:: Classes/AbstractGUICV
 
-DESCRIPTION::
-A class with a skin and methods for generating views.
 
-Access the skin with CODE::GUI.skins.guiCV::.
+DESCRIPTION::
+A helper class defining the look and feel of all these GUI widgets. Contains a skin and methods for generating styled views.
+
+
+SUBSECTION:: Class hierarchy
 
 See the following classes for more information.
 
 CLASSTREE:: AbstractGUICV
+
+
+SUBSECTION:: Skin
+
+Access the GUICV skin with...
+CODE::
+GUI.skins.guiCV;
+
+-> ( 'fontSpecs': [ Menlo, 10 ], 'sliderHeight': 75, 'foreground': Color(0.019607843137255, 0.24313725490196, 0.023529411764706), 'sliderWidth': 20,
+  'spacing': 4, 'buttonHeight': 15, 'highlight': Color(0.36862745098039, 0.97647058823529, 0.36862745098039), 'knobWidth': 40, 'fontColor': Color(0.36862745098039, 0.70980392156863, 0.36862745098039),
+  'margin': Point( 4, 4 ), 'background': Color(), 'palette': a QPalette )
+::
+
+and overwrite like this...
+CODE::
+GUI.skins.guiCV.foreground= Color.blue;
+//will change all GUICV widgets
+::
+
+GUICV's skin expects the following entries...
+
+DEFINITIONLIST::
+## background || a LINK::Classes/Color::.
+## buttonHeight || an LINK::Classes/Integer::.
+## fontColor ||  a LINK::Classes/Color::.
+## fontSpecs || an LINK::Classes/Array:: with fontName LINK::Classes/String:: and fontSize LINK::Classes/Integer:: e.g. CODE::["Menlo", 10]::.
+## foreground || a LINK::Classes/Color::.
+## highlight || a LINK::Classes/Color::.
+## knobWidth || an LINK::Classes/Integer::. Also used knob height and for horizontal sliders (CODE::knobWidth*2::).
+## margin || an LINK::Classes/Integer::.
+## sliderHeight || an LINK::Classes/Integer::. For vertical sliders. Horizontal sliders use CODE::buttonHeight::.
+## sliderWidth || an LINK::Classes/Integer::. For vertical sliders. Horizontal sliders use CODE::knobWidth*2::.
+## spacing || an LINK::Classes/Integer::.
+## palette || a LINK::Classes/QPalette::.
+::
+
+
+SUBSECTION:: Methods
+
+The methods for generating views are used like this...
+CODE::
+GUICV.knob().front;
+::
+
 
 CLASSMETHODS::
 
@@ -20,9 +66,33 @@ ARGUMENT:: parent
 
 ARGUMENT:: bounds
 
+
 EXAMPLES::
 
+SUBSECTION:: basic example
+
 CODE::
+//code <-> gui
+(
+a= GUICVKnob().front;
+)
+a.value;  //click the knob and this will be different
+a.value= 1.0.rand;  //set the knob's value from code
+::
+
+SUBSECTION:: linked widgets
+
+CODE::
+//two views using the same reference
+(
+var r= Ref(0.5);
+View(bounds:100@200).layout_(VLayout(
+	GUICVKnob(ref:r),
+	GUICVSlider(ref:r)
+)).front
+)
+
+//another similar example
 (
 var r= Ref(0.5);
 var knob= GUICVKnob(ref:r);
@@ -30,12 +100,69 @@ var number= GUICVNumberBox(ref:r);
 View().layout_(VLayout(knob, number)).front;
 )
 
+//more views (without Layout Management)
+(
+var w, a, b, c;
+w= Window("test").front;
+a= GUICVKnob(w, Rect(100, 100, 100, 100));
+b= GUICVNumberBox(w, 100@20, a.ref)
+.scroll_step_(0.01);
+c= GUICVSliderLabel(w, Rect(10, 50, 300, 10), a.ref, args: (string: \test))
+.orientation_(\horizontal);
+)
+
+//volume control
+s.boot;
+a= {|amp= 0.1| SinOsc.ar([400, 404], 0, amp)}.play;
 (
 var slider= GUICVSliderLabel(
-	spec:ControlSpec(-inf, 3, 'db'),
+	spec: ControlSpec(-inf, 3, 'db'),
 	args: [string: "volume"]
-).orientation_(\horizontal);
-var number= GUICVNumberBox(ref:slider.ref, spec:slider.spec);
+).orientation_(\horizontal)
+.action_({|v| a.set(\amp, v.value.dbamp)});
+var number= GUICVNumberBox(ref: slider.ref, spec: slider.spec);
 View(nil, 400@200).layout_(VLayout(slider, number)).front;
 )
+a.free;
+::
+
+SUBSECTION:: softSet
+
+CODE::
+//--MIDI ControlChange (#1) with softSet
+(
+a= GUICVKnob().front;
+MIDIIn.connectAll;
+MIDIFunc.cc({|val| {a.softSet(val.postln/127, 0.1)}.defer}, 1);
+)
+//send CC#1 and the knob should change
+
+//same but with two views linked to one midi controller
+(
+View().layout_(VLayout(
+	a= GUICVKnob(),
+	b= GUICVNumberBox(ref: a.ref)
+)).front;
+MIDIIn.connectAll;
+MIDIFunc.cc({|val| {a.softSet(val.postln/127, 0.1)}.defer}, 1);
+);
+a.value= 0.25;
+b.value= 0.5;
+a.value;
+
+//same but with control specs
+//note: softSet value still needs to be normalised
+(
+var r= Ref(16);
+View().layout_(VLayout(
+	a= GUICVKnob(ref: r, spec: ControlSpec(0, 127, 'lin', 1)),
+	b= GUICVNumberBox(ref: r, spec: ControlSpec(0, 127, 'lin', 1))
+)).front;
+MIDIIn.connectAll;
+MIDIFunc.cc({|val| {a.softSet(val.postln/127, 0.1)}.defer}, 1);
+);
+a.value= 32;
+a.get;
+a.set(0.5);
+a.value;
 ::

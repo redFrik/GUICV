@@ -6,7 +6,18 @@ Some GUI widgets with a colour theme and built-in controllers (M-V-C).
 
 These widgets are also efficient as they filter out repeated values and only redraw when needed.
 
-Mainly written for use in the [GFX](https://github.com/redFrik/GFX) quark. Based on redGUI in the [redSys](https://github.com/redFrik/redSys) quark.
+Mainly written for use in the [GFX](https://github.com/redFrik/GFX) quark. Based on the older redGUI in the [redSys](https://github.com/redFrik/redSys) quark.
+
+### basic example:
+
+```supercollider
+//code <-> gui
+(
+a= GUICVKnob().front;
+)
+a.value;  //click the knob and this will be different
+a.value= 1.0.rand;  //set the knob's value from code
+```
 
 ## Requirements
 

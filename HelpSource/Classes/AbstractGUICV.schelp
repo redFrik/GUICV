@@ -10,7 +10,12 @@ NOTE::
 This is an abstract class. Do not instantiate - use the subclasses
 ::
 
-These widgets use key CODE::D:: for jumping to the given spec's default value. The usual defaultKeyDownAction keys still work (CODE::R:: for random, CODE::X:: maximum, CODE::N:: minimum, CODE::C:: center + arrow keys).
+
+SUBSECTION:: defaultKeyDownAction
+
+When in focus, GUICV widgets use key CODE::D:: for jumping to the given spec's default value.
+
+The standard defaultKeyDownAction keys still work (CODE::R:: for random, CODE::X:: maximum, CODE::N:: minimum, CODE::C:: center + arrow keys).
 
 
 CLASSMETHODS::
@@ -29,10 +34,10 @@ ARGUMENT:: spec
 A LINK::Classes/ControlSpec:: instance. If not given, one will be created using CODE::nil.asSpec::.
 
 ARGUMENT:: args
-Optional additional arguments that will be passed to the widget class when created. Can be a keyValuePair array or a dictionary. An example is CODE::\thumbSize:: for sliders.
+Optional additional arguments that will be passed to the widget class when created. Can be an array with keyValue pairs or an dictionary. An example is CODE::\thumbSize:: for sliders.
 
 ARGUMENT:: update
-Flag for blocking value initialisation. Seldom used.
+LINK::Classes/Boolean:: flag for blocking value initialisation. Seldom used.
 
 DISCUSSION::
 An example of when the update flag is needed to be false is when several widgets are linked to the same ref and one want to avoid calling the action function at initialisation.
@@ -41,6 +46,17 @@ An example of when the update flag is needed to be false is when several widgets
 INSTANCEMETHODS::
 
 PRIVATE:: initAbstractGUICV, prConnect, prCreateView, prDkey
+
+METHOD:: action
+Get or set the LINK::Classes/Function:: to be evaluated on widget value change.
+
+CODE::
+GUICVKnob().front.action_({|v| v.value.postln});
+::
+
+NOTE::
+Will also be called when a value is repeated even though internally the view isn't redrawn for repeats (to save CPU).
+::
 
 METHOD:: ref
 The LINK::Classes/Ref::.
@@ -53,6 +69,9 @@ Get or set the current widget value. This value will be constrained by the spec.
 
 METHOD:: get
 Get the normalised value (using CODE::spec.unmap::).
+
+RETURNS::
+A LINK::Classes/Float:: between 0.0 and 1.0
 
 METHOD:: set
 Set the normalised value (using CODE::spec.map::).
@@ -76,82 +95,3 @@ Create a LINK::Classes/Window:: with the widget.
 
 METHOD:: close
 Close widget and remove controllers.
-
-
-EXAMPLES::
-
-SUBSECTION:: basic example
-
-CODE::
-//code <-> gui
-(
-a= GUICVKnob().front;
-)
-a.value;  //click the knob and a.value will be different
-a.value= 1.0.rand;  //or set the knob's value from code
-::
-
-SUBSECTION:: linked widgets
-
-CODE::
-//two views using the same reference
-(
-var r= Ref(0.5);
-View(bounds:100@200).layout_(VLayout(
-	GUICVKnob(ref:r),
-	GUICVSlider(ref:r)
-)).front
-)
-
-//more views (without Layout Management)
-(
-var w, a, b, c;
-w= Window("test").front;
-a= GUICVKnob(w, Rect(100, 100, 100, 100));
-b= GUICVNumberBox(w, 100@20, a.ref)
-.scroll_step_(0.01);
-c= GUICVSliderLabel(w, Rect(10, 50, 300, 10), a.ref, args:(string: \test))
-.orientation_(\horizontal);
-)
-::
-
-SUBSECTION:: softSet
-
-CODE::
-//--MIDI ControlChange (#1) with softSet
-(
-a= GUICVKnob().front;
-MIDIIn.connectAll;
-MIDIFunc.cc({|val| {a.softSet(val.postln/127, 0.1)}.defer}, 1);
-)
-//send CC#1 and the knob should change
-
-//same but with two views linked to one midi controller
-(
-View().layout_(VLayout(
-	a= GUICVKnob(),
-	b= GUICVNumberBox(ref:a.ref)
-)).front;
-MIDIIn.connectAll;
-MIDIFunc.cc({|val| {a.softSet(val.postln/127, 0.1)}.defer}, 1);
-);
-a.value= 0.25;
-b.value= 0.5;
-a.value;
-
-//same but with control specs
-//note: softSet value still needs to be normalised
-(
-var r= Ref(16);
-View().layout_(VLayout(
-	a= GUICVKnob(ref:r, spec:ControlSpec(0, 127, 'lin', 1)),
-	b= GUICVNumberBox(ref:r, spec:ControlSpec(0, 127, 'lin', 1))
-)).front;
-MIDIIn.connectAll;
-MIDIFunc.cc({|val| {a.softSet(val.postln/127, 0.1)}.defer}, 1);
-);
-a.value= 32;
-a.get;
-a.set(0.5);
-a.value;
-::
