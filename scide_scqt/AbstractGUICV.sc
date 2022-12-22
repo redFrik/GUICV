@@ -6,6 +6,7 @@ AbstractGUICV : SCViewHolder {
 
 	var <ref, <spec;
 	var normalized= true;  //unmap or constrain spec. e.g. GUICVNumberBox
+	var <>action;
 
 	*new {|parent, bounds, ref, spec, args, update= true|
 		^super.new.initAbstractGUICV(parent, bounds, ref, spec, args, update)
@@ -47,12 +48,14 @@ AbstractGUICV : SCViewHolder {
 			controller.put(\value, {|r|
 				var val= spec.unmap(r.value);
 				if(val!=lastVal, {view.value_(val); lastVal= val});
+				this.action.value(this);
 			});
 			view.action_({|v| this.set(v.value)});
 		}, {
 			controller.put(\value, {|r|
 				var val= spec.constrain(r.value);
 				if(val!=lastVal, {view.value_(val); lastVal= val});
+				this.action.value(this);
 			});
 			view.action_({|v| this.value_(v.value)});
 		});
