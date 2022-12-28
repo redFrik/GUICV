@@ -21,9 +21,9 @@ Access the GUICV skin with...
 CODE::
 GUI.skins.guiCV;
 
--> ( 'fontSpecs': [ Menlo, 10 ], 'sliderHeight': 75, 'foreground': Color(0.019607843137255, 0.24313725490196, 0.023529411764706), 'sliderWidth': 20,
-  'spacing': 4, 'buttonHeight': 15, 'highlight': Color(0.36862745098039, 0.97647058823529, 0.36862745098039), 'knobWidth': 40, 'fontColor': Color(0.36862745098039, 0.70980392156863, 0.36862745098039),
-  'margin': Point( 4, 4 ), 'background': Color(), 'palette': a QPalette )
+-> ( 'background': Color(), 'fontSmallSpecs': [ Menlo, 8 ], 'knobWidth': 40, 'sliderWidth': 20,
+  'spacing': 4, 'palette': a QPalette, 'foreground': Color(0.019607843137255, 0.24313725490196, 0.023529411764706), 'highlight': Color(0.36862745098039, 0.97647058823529, 0.36862745098039), 'fontColor': Color(0.36862745098039, 0.70980392156863, 0.36862745098039),
+  'buttonHeight': 15, 'fontSpecs': [ Menlo, 10 ], 'margin': Point( 4, 4 ), 'sliderHeight': 75 )
 ::
 
 and overwrite like this...
@@ -39,6 +39,7 @@ DEFINITIONLIST::
 ## buttonHeight || an LINK::Classes/Integer::.
 ## fontColor ||  a LINK::Classes/Color::.
 ## fontSpecs || an LINK::Classes/Array:: with fontName LINK::Classes/String:: and fontSize LINK::Classes/Integer:: e.g. CODE::["Menlo", 10]::.
+## fontSmallSpecs || an LINK::Classes/Array:: with fontName LINK::Classes/String:: and fontSize LINK::Classes/Integer:: e.g. CODE::["Menlo", 8]::.
 ## foreground || a LINK::Classes/Color::.
 ## highlight || a LINK::Classes/Color::.
 ## knobWidth || an LINK::Classes/Integer::. Also used knob height and for horizontal sliders (CODE::knobWidth*2::).
@@ -60,7 +61,7 @@ GUICV.knob().front;
 
 CLASSMETHODS::
 
-METHOD:: button, knob, numberBox, popUpMenu, slider, staticText
+METHOD:: button, knob, levelIndicator, numberBox, popUpMenu, slider, staticText
 
 ARGUMENT:: parent
 

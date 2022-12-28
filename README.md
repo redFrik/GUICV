@@ -8,7 +8,7 @@ These widgets are also efficient as they filter out repeated values and only red
 
 Mainly written for use in the [GFX](https://github.com/redFrik/GFX) quark. Based on the older redGUI in the [redSys](https://github.com/redFrik/redSys) quark.
 
-### basic example:
+### Basic example:
 
 ```supercollider
 //code <-> gui

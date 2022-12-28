@@ -12,6 +12,7 @@ GUICV {
 			buttonHeight: 15,
 			fontColor: Color.new255(94, 181, 94),
 			fontSpecs: [Font.defaultMonoFace, 10],
+			fontSmallSpecs: [Font.defaultMonoFace, 8],
 			foreground: Color.new255(5, 62, 6),
 			highlight: Color.new255(94, 249, 94),
 			knobWidth: 40,
@@ -46,6 +47,19 @@ GUICV {
 		.palette_(skin.palette)
 		.focusColor_(skin.highlight)
 		.color_([skin.foreground, skin.highlight, skin.foreground, skin.highlight])
+	}
+
+	*levelIndicator {|parent, bounds|
+		^LevelIndicator(parent, bounds)
+		.background_(skin.background)
+		.critical_(-1.dbamp)
+		.criticalColor_(Color.white)
+		.drawsPeak_(true)
+		.meterColor_(skin.highlight)
+		.stepWidth_(1)
+		.style_(\led)
+		.warning_(-3.dbamp)
+		.warningColor_(skin.highlight.blend(Color.white))
 	}
 
 	*numberBox {|parent, bounds|
