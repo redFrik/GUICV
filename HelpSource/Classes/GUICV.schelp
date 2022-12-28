@@ -68,6 +68,26 @@ ARGUMENT:: parent
 ARGUMENT:: bounds
 
 
+SUBSECTION:: tools
+
+METHOD:: fixDec
+LINK::Classes/Float:: to LINK::Classes/String:: conversion with fixed number of decimals.
+
+CODE::
+GUICV.fixDec(0.123) -> "0.12"
+GUICV.fixDec(0.19, 1) -> "0.2"
+GUICV.fixDec(3.3e-2) -> "0.03"
+::
+
+ARGUMENT:: val
+A LINK::Classes/Float::.
+
+ARGUMENT:: numDecimals
+Number of decimals in string.
+
+RETURNS:: a LINK::Classes/String::.
+
+
 EXAMPLES::
 
 SUBSECTION:: basic example

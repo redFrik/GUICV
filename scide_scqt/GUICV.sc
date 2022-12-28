@@ -92,4 +92,10 @@ GUICV {
 		.palette_(skin.palette)
 		.font_(Font(*skin.fontSpecs))
 	}
+
+	*fixDec {|val, numDecimals= 2|  //float to string with fixed number of decimals
+		var str= val.round(0.1**numDecimals).asString;
+		var num= str.size-str.indexOf($.)-1;
+		^str.extend(str.size+numDecimals-num, $0)
+	}
 }
