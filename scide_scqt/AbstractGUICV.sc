@@ -20,7 +20,16 @@ AbstractGUICV : SCViewHolder {
 		this.prDkey;
 		this.prConnect;
 		this.step= spec.step;
-		if(update, {ref.changed(\value)});
+
+		if(update, {
+			ref.changed(\value);
+		}, {
+			view.value= if(normalized, {
+				spec.unmap(ref.value);
+			}, {
+				spec.constrain(ref.value);
+			});
+		});
 	}
 
 	close {this.asView.close}
