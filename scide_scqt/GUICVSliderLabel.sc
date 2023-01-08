@@ -11,8 +11,8 @@ GUICVSliderLabel : GUICVSlider {
 			args.atFail(\fontSize, {skin.fontSpecs[1]})
 		);
 		var gap= args.atFail(\fillGap, {4});
-		var rot= args.atFail(\stringRotation, {1.5pi});
-		var str= args.atFail(\string, {this.class.name});
+		var rot= args.atFail(\stringRotation);
+		var str= args.atFail(\string, {this.class.name}).asString;
 
 		var lastVal;
 		var controller;
@@ -29,13 +29,16 @@ GUICVSliderLabel : GUICVSlider {
 			var h= usr.bounds.height;
 			Pen.translate(w*0.5, h*0.5);
 			if(slider.orientation==\vertical, {
-				Pen.rotate(rot);
+				Pen.rotate(1.5pi);
 				w= usr.bounds.height;
 				h= usr.bounds.width;
 			});
 			if(slider.value>0, {
 				Pen.fillColor= skin.highlight;
 				Pen.fillRect(Rect(-0.5*w+gap, -0.5*h+gap, slider.value*(w-(gap*2)), h-(gap*2)));
+			});
+			if(rot!=0, {
+				Pen.rotate(rot);
 			});
 			Pen.stringCenteredIn(str, Rect(-0.5*w, -0.5*h, w, h), fnt, skin.fontColor);
 		});
@@ -45,6 +48,8 @@ GUICVSliderLabel : GUICVSlider {
 		container= View(parent, bounds).layout_(sl)
 		.background_(skin.background)
 		.resizeToBounds(bounds ?? {Size(skin.sliderWidth, skin.sliderHeight)});
+
+		rot= rot ?? {(str.bounds(fnt).width*1.2<container.bounds.width).binaryValue*0.5pi};
 
 		controller= SimpleController(ref).put(\value, {|r|
 			if(r.value!=lastVal, {
