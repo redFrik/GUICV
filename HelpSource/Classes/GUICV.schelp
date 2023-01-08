@@ -74,9 +74,9 @@ METHOD:: fixDec
 LINK::Classes/Float:: to LINK::Classes/String:: conversion with fixed number of decimals.
 
 CODE::
-GUICV.fixDec(0.123) -> "0.12"
-GUICV.fixDec(0.19, 1) -> "0.2"
-GUICV.fixDec(3.3e-2) -> "0.03"
+GUICV.fixDec(0.123)  //0.12
+GUICV.fixDec(0.19, 1)  //0.2
+GUICV.fixDec(3.3e-2)  //0.03
 ::
 
 ARGUMENT:: val
@@ -150,13 +150,13 @@ a.free;
 SUBSECTION:: softSet
 
 CODE::
-//--MIDI ControlChange (#1) with softSet
+//--MIDI ControlChange (#2) with softSet
 (
 a= GUICVKnob().front;
 MIDIIn.connectAll;
-MIDIFunc.cc({|val| {a.softSet(val.postln/127, 0.1)}.defer}, 1);
+MIDIdef.cc(\knob, {|val| {a.softSet(val.postln/127, 0.1)}.defer}, 2);
 )
-//send CC#1 and the knob should change
+//send CC#2 and the knob should change
 
 //same but with two views linked to one midi controller
 (
@@ -165,7 +165,7 @@ View().layout_(VLayout(
 	b= GUICVNumberBox(ref: a.ref)
 )).front;
 MIDIIn.connectAll;
-MIDIFunc.cc({|val| {a.softSet(val.postln/127, 0.1)}.defer}, 1);
+MIDIdef.cc(\knob, {|val| {a.softSet(val.postln/127, 0.1)}.defer}, 2);
 );
 a.value= 0.25;
 b.value= 0.5;
@@ -180,10 +180,12 @@ View().layout_(VLayout(
 	b= GUICVNumberBox(ref: r, spec: ControlSpec(0, 127, 'lin', 1))
 )).front;
 MIDIIn.connectAll;
-MIDIFunc.cc({|val| {a.softSet(val.postln/127, 0.1)}.defer}, 1);
+MIDIdef.cc(\knob, {|val| {a.softSet(val.postln/127, 0.1)}.defer}, 2);
 );
 a.value= 32;
 a.get;
 a.set(0.5);
 a.value;
+
+MIDIdef(\knob).free;
 ::
