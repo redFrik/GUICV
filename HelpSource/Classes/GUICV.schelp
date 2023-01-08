@@ -128,7 +128,8 @@ w= Window("test").front;
 a= GUICVKnob(w, Rect(100, 100, 100, 100));
 b= GUICVNumberBox(w, 100@20, a.ref)
 .scroll_step_(0.01);
-c= GUICVSliderLabel(w, Rect(10, 50, 300, 10), a.ref, args: (string: \test))
+c= GUICVSliderLabel(w, Rect(10, 50, 300, 10), a.ref)
+.string_("test")
 .orientation_(\horizontal);
 )
 
@@ -136,10 +137,9 @@ c= GUICVSliderLabel(w, Rect(10, 50, 300, 10), a.ref, args: (string: \test))
 s.boot;
 a= {|amp= 0.1| SinOsc.ar([400, 404], 0, amp)}.play;
 (
-var slider= GUICVSliderLabel(
-	spec: ControlSpec(-inf, 3, 'db'),
-	args: [string: "volume"]
-).orientation_(\horizontal)
+var slider= GUICVSliderLabel(spec: ControlSpec(-inf, 3, 'db'))
+.string_("volume")
+.orientation_(\horizontal)
 .action_({|v| a.set(\amp, v.value.dbamp)});
 var number= GUICVNumberBox(ref: slider.ref, spec: slider.spec);
 View(nil, 400@200).layout_(VLayout(slider, number)).front;

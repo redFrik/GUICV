@@ -5,17 +5,15 @@ RELATED:: Classes/GUICV, Classes/Slider
 
 
 DESCRIPTION::
-Available args are:
-TABLE::
-## \button || a LINK::Classes/Color::
-## \thumbSize || default: 4
-::
 
 
 INSTANCEMETHODS::
 
 PRIVATE:: prCreateView
 
+METHOD:: thumbColor
+Get or set the color of the slider thumb. Related to LINK::Classes/Slider#-knobColor::.
+NOTE:: Only visible when thumbSize is set to something greater than the default 4::
 
 EXAMPLES::
 

@@ -11,6 +11,9 @@ INSTANCEMETHODS::
 
 PRIVATE:: prCreateView
 
+METHOD:: valueColor
+Get or set the color of the value indicator.
+
 
 EXAMPLES::
 

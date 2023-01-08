@@ -33,9 +33,6 @@ A LINK::Classes/Ref:: instance. If not given, one will be created and its value 
 ARGUMENT:: spec
 A LINK::Classes/ControlSpec:: instance. If not given, one will be created using CODE::nil.asSpec::.
 
-ARGUMENT:: args
-Optional additional arguments that will be passed to the widget class when created. Can be an array with keyValue pairs or an dictionary. An example is CODE::\thumbSize:: for sliders.
-
 ARGUMENT:: update
 LINK::Classes/Boolean:: flag for blocking value initialisation. Seldom used.
 

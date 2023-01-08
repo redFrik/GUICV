@@ -1,6 +1,6 @@
 GUICVNumberBox : AbstractGUICV {
 
-	prCreateView {|parent, bounds, args|
+	prCreateView {|parent, bounds|
 		normalized= false;
 		^GUICV.numberBox(parent, bounds)
 	}

@@ -5,27 +5,35 @@ RELATED:: Classes/GUICV, Classes/Slider
 
 
 DESCRIPTION::
-Available args are:
-TABLE::
-## \fontName || from skin.fontSpecs
-## \fontSize || from skin.fontSpecs
-## \fillGap || default: 4
-## \stringRotation || default: 0
-## \string || class name
-## \button || a LINK::Classes/Color:: (from superclass)
-## \thumbSize || default: 4 (from superclass)
-::
-
+NOTE::For all instance setter methods below, call CODE::.refresh:: for the changes to be visible. Else they will take place at the next value change::.
 
 INSTANCEMETHODS::
 
 PRIVATE:: prCreateView
 
+METHOD:: fillColor
+Get or set the color of the value indicator.
+
+METHOD:: fillGap
+Get or set the padding of the inner filled rectangle.
+
+METHOD:: font
+Get or set the font for the string.
+
+METHOD:: string
+Get or set the current string.
+
+METHOD:: stringColor
+Get or set the color of the text.
+
+METHOD:: stringRotation
+Get or set the rotation of the string in radians.
+
 
 EXAMPLES::
 
 CODE::
-a= GUICVSliderLabel(spec:\freq.asSpec, args:(string: "Hz")).front;
+a= GUICVSliderLabel(spec:\freq.asSpec).string_("Hz").front;
 a.value= 500;
 a.value= -5;
 a.value;  //constrained by spec to 20.0
