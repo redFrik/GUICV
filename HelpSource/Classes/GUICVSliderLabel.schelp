@@ -5,6 +5,16 @@ RELATED:: Classes/GUICV, Classes/Slider
 
 
 DESCRIPTION::
+Available args are:
+TABLE::
+## \fontName || from skin.fontSpecs
+## \fontSize || from skin.fontSpecs
+## \fillGap || default: 4
+## \stringRotation || default: 0
+## \string || class name
+## \button || a LINK::Classes/Color:: (from superclass)
+## \thumbSize || default: 4 (from superclass)
+::
 
 
 INSTANCEMETHODS::

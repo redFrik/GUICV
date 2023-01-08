@@ -5,6 +5,11 @@ RELATED:: Classes/GUICV, Classes/Slider
 
 
 DESCRIPTION::
+Available args are:
+TABLE::
+## \button || a LINK::Classes/Color::
+## \thumbSize || default: 4
+::
 
 
 INSTANCEMETHODS::
