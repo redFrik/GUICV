@@ -90,15 +90,15 @@ CVBoolean : CV {
 	var <>thresh= 0.5;
 
 	initCV {|argRef, argSpec|
-		spec= ControlSpec(0, 1, 'lin', 1, (argRef.value ? false).binaryValue);
+		spec= ControlSpec(0, 1, 'lin', 1, (argRef.value ? false).asInteger);
 		ref= argRef ?? {Ref(spec.default)};
 		ref.addDependant(this);
 		actions= List.new;
 	}
 
-	default {^spec.default.booleanValue}
+	default {^spec.default.asBoolean}
 
-	get {^this.value.binaryValue}
+	get {^this.value.asInteger}
 	set {|val| ^this.value_(val>=thresh)}
 	softSet {|val, within= 0.05|
 		if(val<=within or:{val>=(1-within)}, {
