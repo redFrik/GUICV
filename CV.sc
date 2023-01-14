@@ -63,6 +63,13 @@ CV {
 		ref= Ref(ref.value);
 		ref.addDependant(this);
 	}
+
+	printOn {|stream|
+		stream << this.class.name << "(" << ref.value << ")";
+	}
+	storeOn {|stream|
+		stream << this.class.name << "(" << ref.value << ", " << spec << ")";
+	}
 }
 
 CVArray : CV {
