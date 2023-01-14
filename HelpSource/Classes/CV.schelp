@@ -1,0 +1,190 @@
+CLASS:: CV
+SUMMARY:: value and spec
+CATEGORIES:: Green
+RELATED:: Overviews/GUICVOverview, Classes/AbstractGUICVView
+
+
+DESCRIPTION::
+
+
+CLASSMETHODS::
+
+METHOD:: new
+Create a new CV.
+
+ARGUMENT:: ref
+A LINK::Classes/Ref:: instance holding a LINK::Classes/Float:: value (or an LINK::Classes/Array:: of floats or a LINK::Classes/Boolean::). If not given, a Ref will be created and its value will be taken from the spec's default (usually CODE::0::). This argument can also be a value and then it will automatically be wrapped in a ref.
+
+ARGUMENT:: spec
+A LINK::Classes/ControlSpec:: instance. If not given, one will be created using CODE::nil.asSpec::.
+
+CODE::
+a= CV();
+a.value= 1.5;
+a.value;  //-> 1.0 (constrained by the default spec)
+a.spec;  //-> a ControlSpec(0.0, 1.0, 'linear', 0.0, 0.0, "")
+::
+
+
+RETURNS:: Normally a new CV, but if the ref value is an LINK::Classes/Array:: of floats or a LINK::Classes/Boolean::, an instance of the subclasses LINK::Classes/CVArray:: or LINK::Classes/CVBoolean::.
+
+
+METHOD:: newFrom
+Create a new CV from another instance.
+
+ARGUMENT:: cv
+Another CV.
+
+
+INSTANCEMETHODS::
+
+PRIVATE:: initCV
+
+METHOD:: ref
+The LINK::Classes/Ref:: that hold the current value.
+
+METHOD:: spec
+The LINK::Classes/ControlSpec::.
+
+
+SUBSECTION:: Value access
+
+METHOD:: default
+Returns the spec's default.
+
+METHOD:: get
+Get the normalised value (using CODE::spec.unmap::).
+
+RETURNS::
+A LINK::Classes/Float:: between 0.0 and 1.0
+
+METHOD:: set
+Set the normalised value (using CODE::spec.map::).
+
+ARGUMENT:: val
+A LINK::Classes/Float:: between 0.0 and 1.0
+
+METHOD:: softSet
+If val is within range of the current value, set the value. Useful for MIDI controllers.
+
+ARGUMENT:: val
+A normalised LINK::Classes/Float:: (between 0.0 and 1.0).
+
+ARGUMENT:: within
+A LINK::Classes/Float:: specifying a range (+/-).
+
+RETURNS:: LINK::Classes/True:: if current value was updated, LINK::Classes/False:: if not (out of range).
+
+METHOD:: value
+Get or set the current value. This value will be constrained by the spec.
+
+
+SUBSECTION:: Actions
+
+METHOD:: addAction
+Action taken when the value is set. Several functions can be added.
+
+ARGUMENT:: action
+A LINK::Classes/Function::. The first argument passed in will be this CV itself, the second the current value of ref.
+
+METHOD:: removeAction
+Remove the action.
+
+ARGUMENT:: action
+A LINK::Classes/Function::.
+
+METHOD:: remove
+Remove all dependancies.
+
+METHOD:: update
+Force all the added actions to evaluate (not actions of any linked CVs).
+
+
+SUBSECTION:: Interconnection
+
+METHOD:: link
+Connect two CVs.
+
+ARGUMENT:: other
+Another instance that will reflect value changes.
+
+METHOD:: unlink
+Disconnect any linked CVs.
+
+
+EXAMPLES::
+
+SUBSECTION:: Basics
+
+CODE::
+g= CV(spec: \freq.asSpec);
+g.value;
+g.value= 880;
+g.get;  //normalized
+g.set(1.0);  //normalized
+g.value;  //Hz (spec maximum)
+
+g.addAction({|cv, val| [cv, val].postln});
+g.value= 300;
+g.softSet(0.1);  //normalized
+g.get;
+g.softSet(0.4);
+::
+
+
+SUBSECTION:: Linked CVs
+
+CODE::
+g= CV();
+g.value= 1.0.rand;
+g.value;
+h= CV();
+h.value;  //should be 0 (g and h still independent)
+h.link(g);
+h.value;  //should be the same as g.value
+h.value= 0.5;  //linked to g so that will also change
+g.value;  //should be same as h (0.5)
+
+g.addAction({|cv, val| [\g, val].postln});
+h.addAction({|cv, val| [\h, val].postln});
+g.value= 1.0.rand;
+h.value= 0.1.rand;
+h.unlink;
+g.value= 1.0.rand;
+h.value= 0.1.rand;
+::
+
+
+SUBSECTION:: Arrays
+
+CODE::
+g= CV(Ref([400, 600, 800]), \freq.asSpec);  //returns a CVArray
+g.get;
+g.set([0.5, 0.6, 0.7]);
+g.softSet([0.45, 0.55, 0.65]);
+g.set([-1, -2, -3]);
+g.value;  //all clipped at spec minimum (20Hz)
+g.default;
+::
+
+
+SUBSECTION:: Boolean
+
+CODE::
+g= CV(Ref(true));  //returns a CVBoolean. No need to specify a spec - CVBoolean will overwrite it
+g.get;
+g.set(0);
+g.value;  //false
+g.set(0.51);
+g.value;  //true. anything >= thresh (default 0.5) will be true
+
+/*
+.softSet work a little bit different in CVBoolean.
+The within argument sets the distance from 0 or 1.
+*/
+g.value= true;
+g.softSet(0.2);  //not close enough to 0, so return false
+g.value;  //value is still true
+g.softSet(0.02);  //within range, so return true
+g.value;  //value is now false
+::

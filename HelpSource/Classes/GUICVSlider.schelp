@@ -1,7 +1,7 @@
 CLASS:: GUICVSlider
 SUMMARY:: a Slider
 CATEGORIES:: Green
-RELATED:: Classes/GUICV, Classes/Slider
+RELATED:: Classes/GUICV, Classes/CV, Classes/Slider
 
 
 DESCRIPTION::

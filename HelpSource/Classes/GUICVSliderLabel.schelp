@@ -1,11 +1,12 @@
 CLASS:: GUICVSliderLabel
 SUMMARY:: a Slider with a label
 CATEGORIES:: Green
-RELATED:: Classes/GUICV, Classes/Slider
+RELATED:: Classes/GUICV, Classes/CV, Classes/Slider
 
 
 DESCRIPTION::
-NOTE::For all instance setter methods below, call CODE::.refresh:: for the changes to be visible. Else they will take place at the next value change::.
+NOTE::For all instance setter methods below (LINK::#-fillColor::, LINK::#-string:: etc.), call CODE::.refresh:: for the changes to be visible. Else they will take place at the next value change.::
+
 
 INSTANCEMETHODS::
 
@@ -28,6 +29,9 @@ Get or set the color of the text.
 
 METHOD:: stringRotation
 Get or set the rotation of the string in radians.
+
+METHOD:: refresh
+Force redraw and make any changes using the above methods visible.
 
 
 EXAMPLES::

@@ -1,0 +1,30 @@
+CLASS:: CVBoolean
+SUMMARY:: boolean value
+CATEGORIES:: Green
+RELATED:: Overviews/GUICVOverview
+
+
+DESCRIPTION::
+Helper class. See the superclass LINK::Classes/CV:: for more information.
+
+
+INSTANCEMETHODS::
+
+PRIVATE:: initCV
+
+METHOD:: thresh
+A LINK::Classes/Float:: between 0.0 and 1.0. Default is 0.5
+
+EXAMPLES::
+
+CODE::
+g= CVBoolean(true);  //first arg can also be a value - not a Ref
+g.thresh= 0.1;  //set a different threshold
+g.get;
+g.set(0);
+g.value;  //false
+g.set(0.05);
+a.value;  //still false
+g.set(0.15);
+g.value;  //true. anything >= thresh (default 0.5) will be true
+::

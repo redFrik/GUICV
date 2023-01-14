@@ -12,9 +12,6 @@ AbstractGUICVView : SCViewHolder {
 		^super.new.initAbstractGUICVView(parent, bounds, ref, spec, update)
 	}
 
-	ref {^cv.ref}
-	spec {^cv.spec}
-
 	initAbstractGUICVView {|parent, bounds, argRef, argSpec, update|
 		var updateFunc;
 
@@ -38,6 +35,11 @@ AbstractGUICVView : SCViewHolder {
 	close {this.asView.close}
 	front {this.asView.front}
 
+	//--aliases
+
+	ref {^cv.ref}
+	spec {^cv.spec}
+
 	default {^cv.default}
 
 	get {^cv.get}
@@ -50,7 +52,7 @@ AbstractGUICVView : SCViewHolder {
 	update {cv.update}
 
 	link {|widget| cv.link(widget.cv)}
-	unlink {|widget| cv.unlink(widget.cv)}
+	unlink {cv.unlink}
 
 	//--private
 
@@ -58,7 +60,7 @@ AbstractGUICVView : SCViewHolder {
 		var lastVal;
 		if(normalized, {
 			cv.addAction({|cv, val|
-				if(val!=lastVal, {view.value_(val); lastVal= val});
+				if(val!=lastVal, {view.value_(cv.get); lastVal= val});
 				this.action.value(this);
 			});
 			view.action_({|v| this.set(v.value)});

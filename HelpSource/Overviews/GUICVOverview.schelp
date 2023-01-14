@@ -1,0 +1,50 @@
+TITLE:: GUICVOverview
+SUMMARY:: Green GUI widgets with built-in controllers
+CATEGORIES:: Green
+RELATED:: Classes/AbstractGUICVView, Classes/GUICV, Classes/CV
+
+DESCRIPTION::
+
+Some GUI widgets with a colour theme and built-in controllers (M-V-C).
+
+These widgets are also efficient as they filter out repeated values and only redraw when needed.
+
+Mainly written for use in the GFX quark ( https://github.com/redFrik/GFX ). Based on the older redGUI in the redSys quark ( https://github.com/redFrik/redSys ).
+
+
+SUBSECTION:: Basics
+
+CODE::
+//code <-> gui
+(
+a= GUICVKnob().front;
+)
+a.value;  //click the knob and this will be different
+a.value= 1.0.rand;  //set the knob's value from code
+::
+
+See LINK::Classes/AbstractGUICVView:: for more practical examples.
+
+
+SUBSECTION:: Class hierarchy
+
+STRONG::Available GUICV widget classes:::
+
+CLASSTREE:: AbstractGUICVView
+
+
+STRONG:: Supporting GUI class:::
+
+CLASSTREE:: GUICV
+
+
+STRONG:: Supporting controller classes:::
+
+CLASSTREE:: CV
+
+
+SUBSECTION:: Dependancies
+
+* LINK::Classes/QtGUI:: - i.e. will run on most SuperCollider installs except EMPHASIS::headless::.
+
+The exception is the LINK::Classes/CV:: class. It can be used without QtGUI.

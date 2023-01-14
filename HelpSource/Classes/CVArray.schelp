@@ -1,0 +1,8 @@
+CLASS:: CVArray
+SUMMARY:: several values
+CATEGORIES:: Green
+RELATED:: Overviews/GUICVOverview
+
+
+DESCRIPTION::
+Helper class. See the superclass LINK::Classes/CV:: for more information.

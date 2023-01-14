@@ -27,6 +27,8 @@ a.value= 1.0.rand;  //set the knob's value from code
 
 * **QtGUI** - i.e. will run on most SuperCollider installs except "_headless_".
 
+The exception is the CV class. It can be used without QtGUI.
+
 ## Installation
 
 ```supercollider

@@ -14,8 +14,7 @@ GUICVSliderLabel : GUICVSlider {
 
 	prCreateView {|parent, bounds|
 		var skin= GUI.skins.guiCV;
-		var lastVal;
-		var controller;
+		var lastVal, refresher;
 
 		var sl= StackLayout().mode_(\stackAll);
 
@@ -55,13 +54,14 @@ GUICVSliderLabel : GUICVSlider {
 		font= Font(*skin.fontSpecs);
 		stringColor= skin.fontColor;
 
-		controller= SimpleController(ref).put(\value, {|r|
-			if(r.value!=lastVal, {
+		refresher= {|cv, val|
+			if(val!=lastVal, {
 				userView.refresh;
-				lastVal= r.value;
+				lastVal= val;
 			});
-		});
-		userView.onClose_({controller.remove});
+		};
+		cv.addAction(refresher);
+		userView.onClose_({cv.removeAction(refresher)});
 
 		^slider
 	}
