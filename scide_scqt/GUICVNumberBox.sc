@@ -1,4 +1,4 @@
-GUICVNumberBox : AbstractGUICV {
+GUICVNumberBox : AbstractGUICVView {
 
 	prCreateView {|parent, bounds|
 		normalized= false;

@@ -1,0 +1,109 @@
+CLASS:: AbstractGUICVView
+SUMMARY:: abstract class
+CATEGORIES:: Green
+RELATED:: Classes/CV, Classes/GUICV
+
+
+DESCRIPTION::
+
+NOTE::
+This is an abstract class. Do not instantiate - use the subclasses
+::
+
+CLASSTREE:: AbstractGUICVView
+
+
+SUBSECTION:: defaultKeyDownAction
+
+When in focus, GUICV widgets use key CODE::D:: for jumping to the given spec's default value.
+
+The standard defaultKeyDownAction keys still work (CODE::R:: for random, CODE::X:: maximum, CODE::N:: minimum, CODE::C:: center + arrow keys).
+
+
+CLASSMETHODS::
+
+METHOD:: new
+Create a new GUI widget. The widget works like any other LINK::Classes/View:: and be inserted into a LINK::Classes/Layout:: or brought forward using CODE::.front::.
+
+ARGUMENT:: parent
+
+ARGUMENT:: bounds
+
+ARGUMENT:: ref
+A LINK::Classes/Ref:: instance. If not given, one will be created and its value will be taken from the spec's default (usually CODE::0::).
+
+ARGUMENT:: spec
+A LINK::Classes/ControlSpec:: instance. If not given, one will be created using CODE::nil.asSpec::.
+
+ARGUMENT:: update
+LINK::Classes/Boolean:: flag for allowing LINK::#-action:: to run at initialisation. Seldom need to change.
+
+DISCUSSION::
+When several widgets are linked one can use the update flag to stop calling some of the action functions at initialisation. For example to avoid sending duplicate .set messages to a synth.
+
+
+INSTANCEMETHODS::
+
+PRIVATE:: initAbstractGUICVView, prConnect, prCreateView, prDkey
+
+METHOD:: cv
+The internal LINK::Classes/CV::.
+
+COPYMETHOD:: CV -ref
+
+COPYMETHOD:: CV -spec
+
+
+SUBSECTION:: Value access
+
+COPYMETHOD:: CV -default
+
+COPYMETHOD:: CV -get
+
+COPYMETHOD:: CV -set
+
+COPYMETHOD:: CV -softSet
+
+COPYMETHOD:: CV -value
+
+
+SUBSECTION:: Actions
+
+METHOD:: action
+Get or set the LINK::Classes/Function:: to be evaluated on widget value change.
+
+CODE::
+a= GUICVKnob().front.action_({|v| v.value.postln});
+a.value= 1.0.rand;
+::
+
+NOTE::
+Will also be called when a value is repeated even though internally the view isn't redrawn for repeats (this to save CPU).
+::
+
+METHOD:: update
+Force the action to evaluate (not action of any linked widgets).
+
+
+SUBSECTION:: Interconnection
+
+METHOD:: link
+Connect two GUI widgets.
+
+ARGUMENT:: widget
+Another instance that will reflect value changes.
+
+METHOD:: unlink
+Disconnect two GUI widgets.
+
+ARGUMENT:: widget
+Another instance.
+
+
+SUBSECTION:: GUI
+
+METHOD:: front
+Create a LINK::Classes/Window:: with the widget.
+
+METHOD:: close
+Close widget and remove controllers.

@@ -1,7 +1,7 @@
 CLASS:: GUICV
 SUMMARY:: GUICV base class
 CATEGORIES:: Green
-RELATED:: Classes/AbstractGUICV
+RELATED:: Classes/AbstractGUICVView, Classes/CV
 
 
 DESCRIPTION::
@@ -12,7 +12,7 @@ SUBSECTION:: Class hierarchy
 
 See the following classes for more information.
 
-CLASSTREE:: AbstractGUICV
+CLASSTREE:: AbstractGUICVView
 
 
 SUBSECTION:: Skin

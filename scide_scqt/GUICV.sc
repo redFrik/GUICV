@@ -1,14 +1,12 @@
 //redFrik
 
-//related: AbstractGUICV
+//related: AbstractGUICVView
 
-AttributesGUICV {
-
-	classvar skin;
+GUICV {
 
 	*initClass {
 
-		skin= (
+		var skin= (
 			background: Color.black,
 			buttonHeight: 15,
 			fontColor: Color.new255(94, 181, 94),
@@ -33,10 +31,11 @@ AttributesGUICV {
 		.setColor(skin.foreground, \window)
 		.setColor(skin.fontColor, \windowText);
 
-		GUI.skins.put(\GUICV, skin);
+		GUI.skins.put(\guiCV, skin);
 	}
 
 	*button {|parent, bounds|
+		var skin= GUI.skins.guiCV;
 		^Button(parent, bounds)
 		.palette_(skin.palette)
 		.focusColor_(skin.highlight)
@@ -44,6 +43,7 @@ AttributesGUICV {
 	}
 
 	*knob {|parent, bounds|
+		var skin= GUI.skins.guiCV;
 		^Knob(parent, bounds)
 		.palette_(skin.palette)
 		.focusColor_(skin.highlight)
@@ -51,6 +51,7 @@ AttributesGUICV {
 	}
 
 	*levelIndicator {|parent, bounds|
+		var skin= GUI.skins.guiCV;
 		^LevelIndicator(parent, bounds)
 		.background_(skin.background)
 		.critical_(-1.dbamp)
@@ -64,6 +65,7 @@ AttributesGUICV {
 	}
 
 	*numberBox {|parent, bounds|
+		var skin= GUI.skins.guiCV;
 		^NumberBox(parent, bounds)
 		.palette_(skin.palette)
 		.font_(Font(*skin.fontSpecs))
@@ -72,6 +74,7 @@ AttributesGUICV {
 	}
 
 	*popUpMenu {|parent, bounds|
+		var skin= GUI.skins.guiCV;
 		^PopUpMenu(parent, bounds)
 		.palette_(skin.palette)
 		.font_(Font(*skin.fontSpecs))
@@ -79,6 +82,7 @@ AttributesGUICV {
 	}
 
 	*slider {|parent, bounds|
+		var skin= GUI.skins.guiCV;
 		^Slider(parent, bounds)
 		.palette_(skin.palette)
 		.background_(skin.foreground)
@@ -89,6 +93,7 @@ AttributesGUICV {
 	}
 
 	*staticText {|parent, bounds|
+		var skin= GUI.skins.guiCV;
 		^StaticText(parent, bounds)
 		.palette_(skin.palette)
 		.font_(Font(*skin.fontSpecs))
