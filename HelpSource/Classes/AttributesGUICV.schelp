@@ -5,7 +5,7 @@ RELATED:: Classes/AbstractGUICV
 
 
 DESCRIPTION::
-A helper class defining the look and feel of all these GUI widgets. Contains a skin and methods for generating styled views.
+A helper class defining the look and feel of a few GUI widgets. Contains a skin and methods for generating styled views.
 
 
 SUBSECTION:: Class hierarchy
@@ -21,12 +21,14 @@ Access the GUICV skin with...
 CODE::
 GUI.skins.guiCV;
 
+/*
 -> ( 'background': Color(), 'fontSmallSpecs': [ Menlo, 8 ], 'knobWidth': 40, 'sliderWidth': 20,
   'spacing': 4, 'palette': a QPalette, 'foreground': Color(0.019607843137255, 0.24313725490196, 0.023529411764706), 'highlight': Color(0.36862745098039, 0.97647058823529, 0.36862745098039), 'fontColor': Color(0.36862745098039, 0.70980392156863, 0.36862745098039),
   'buttonHeight': 15, 'fontSpecs': [ Menlo, 10 ], 'margin': Point( 4, 4 ), 'sliderHeight': 75 )
+*/
 ::
 
-and overwrite like this...
+and overwrite entries like this...
 CODE::
 GUI.skins.guiCV.foreground= Color.blue;
 //will change all GUICV widgets
@@ -99,26 +101,39 @@ a= GUICVKnob().front;
 )
 a.value;  //click the knob and this will be different
 a.value= 1.0.rand;  //set the knob's value from code
+
+a.close;
+::
+
+SUBSECTION:: action function
+
+CODE::
+a= GUICVKnob(spec: \freq.asSpec).action_({|v| v.value.postln}).front;
+a.set(1.0.rand);  //set the knob's normalised value from code
+a.action= {|v| [v.value, v.get].postln};  //change action
+a.set(1.0.rand);
+
+a.close;
 ::
 
 SUBSECTION:: linked widgets
 
 CODE::
-//two views using the same reference
+//two views interlinked
+(
+var knob= GUICVKnob();
+var number= GUICVNumberBox();
+number.link(knob);
+View().layout_(VLayout(knob, number)).front;
+)
+
+//similar - two views using the same reference
 (
 var r= Ref(0.5);
 View(bounds:100@200).layout_(VLayout(
 	GUICVKnob(ref:r),
 	GUICVSlider(ref:r)
 )).front
-)
-
-//another similar example
-(
-var r= Ref(0.5);
-var knob= GUICVKnob(ref:r);
-var number= GUICVNumberBox(ref:r);
-View().layout_(VLayout(knob, number)).front;
 )
 
 //more views (without Layout Management)
@@ -137,12 +152,14 @@ c= GUICVSliderLabel(w, Rect(10, 50, 300, 10), a.ref)
 s.boot;
 a= {|amp= 0.1| SinOsc.ar([400, 404], 0, amp)}.play;
 (
-var slider= GUICVSliderLabel(spec: ControlSpec(-inf, 3, 'db'))
+var spec= ControlSpec(-inf, 3, 'db', 0, -10);
+var slider= GUICVSliderLabel(spec: spec)
 .string_("volume")
 .orientation_(\horizontal)
 .action_({|v| a.set(\amp, v.value.dbamp)});
-var number= GUICVNumberBox(ref: slider.ref, spec: slider.spec);
+var number= GUICVNumberBox(spec: spec);
 View(nil, 400@200).layout_(VLayout(slider, number)).front;
+slider.link(number);
 )
 a.free;
 ::
@@ -150,34 +167,18 @@ a.free;
 SUBSECTION:: softSet
 
 CODE::
-//--MIDI ControlChange (#2) with softSet
+//MIDI ControlChange (#2) with softSet
 (
 a= GUICVKnob().front;
 MIDIIn.connectAll;
 MIDIdef.cc(\knob, {|val| {a.softSet(val.postln/127, 0.1)}.defer}, 2);
 )
-//send CC#2 and the knob should change
 
-//same but with two views linked to one midi controller
+//two views linked to one midi controller (#2)
 (
 View().layout_(VLayout(
-	a= GUICVKnob(),
-	b= GUICVNumberBox(ref: a.ref)
-)).front;
-MIDIIn.connectAll;
-MIDIdef.cc(\knob, {|val| {a.softSet(val.postln/127, 0.1)}.defer}, 2);
-);
-a.value= 0.25;
-b.value= 0.5;
-a.value;
-
-//same but with control specs
-//note: softSet value still needs to be normalised
-(
-var r= Ref(16);
-View().layout_(VLayout(
-	a= GUICVKnob(ref: r, spec: ControlSpec(0, 127, 'lin', 1)),
-	b= GUICVNumberBox(ref: r, spec: ControlSpec(0, 127, 'lin', 1))
+	a= GUICVKnob(spec: ControlSpec(0, 127, 'lin', 1)),
+	b= GUICVNumberBox(ref: a.ref, spec: ControlSpec(0, 127, 'lin', 1))
 )).front;
 MIDIIn.connectAll;
 MIDIdef.cc(\knob, {|val| {a.softSet(val.postln/127, 0.1)}.defer}, 2);

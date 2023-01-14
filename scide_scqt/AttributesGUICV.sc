@@ -2,7 +2,8 @@
 
 //related: AbstractGUICV
 
-GUICV {
+AttributesGUICV {
+
 	classvar skin;
 
 	*initClass {
@@ -32,7 +33,7 @@ GUICV {
 		.setColor(skin.foreground, \window)
 		.setColor(skin.fontColor, \windowText);
 
-		GUI.skins.put(\guiCV, skin);
+		GUI.skins.put(\GUICV, skin);
 	}
 
 	*button {|parent, bounds|
