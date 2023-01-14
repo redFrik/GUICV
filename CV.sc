@@ -64,6 +64,8 @@ CV {
 		ref.addDependant(this);
 	}
 
+	asControlInput {^this.value.asControlInput}
+
 	printOn {|stream|
 		stream << this.class.name << "(" << ref.value << ")";
 	}
