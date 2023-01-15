@@ -1,0 +1,30 @@
+CLASS:: GUICVButton
+SUMMARY:: a Button
+CATEGORIES:: Green
+RELATED:: Classes/GUICV, Classes/CV, Classes/Button
+
+
+DESCRIPTION::
+
+
+INSTANCEMETHODS::
+
+PRIVATE:: prCreateView
+
+METHOD:: string
+Set all button states to the same string.
+
+
+EXAMPLES::
+
+CODE::
+a= GUICVButton().front;
+a.value= 1500;
+a.value= -5;
+a.value;  //constrained by spec to 0.0
+a.get;  //normalised
+a.set(0.5);
+a.set(0.49);
+
+a.close;
+::

@@ -19,7 +19,7 @@ AbstractGUICVView : SCViewHolder {
 		view= this.prCreateView(parent, bounds);
 		this.prDkey;
 		this.prConnect;
-		this.step= cv.spec.step;
+		if(view.respondsTo(\step_), {this.step_(cv.spec.step)});
 
 		if(update, {
 			updateFunc= {|view|  //run once
