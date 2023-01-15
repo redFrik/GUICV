@@ -1,7 +1,7 @@
 TITLE:: GUICVOverview
 SUMMARY:: Green GUI widgets with built-in controllers
 CATEGORIES:: Green
-RELATED:: Classes/AbstractGUICVView, Classes/GUICV, Classes/CV
+RELATED:: Classes/AbstractGUICVView, Classes/GUICV, Classes/CV, Overviews/GFX_Overview
 
 DESCRIPTION::
 
@@ -45,6 +45,6 @@ CLASSTREE:: CV
 
 SUBSECTION:: Dependancies
 
-* LINK::Classes/QtGUI:: - i.e. will run on most SuperCollider installs except EMPHASIS::headless::.
+* LINK::Classes/QtGUI:: - i.e. will run on most SuperCollider installs.
 
 The exception is the LINK::Classes/CV:: class. It can be used without QtGUI.
