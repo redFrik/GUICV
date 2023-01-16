@@ -1,6 +1,6 @@
 TITLE:: GUICVOverview
 SUMMARY:: Green GUI widgets with built-in controllers
-CATEGORIES:: Green
+CATEGORIES:: Green>GUICV
 RELATED:: Classes/AbstractGUICVView, Classes/GUICV, Classes/CV, Overviews/GFX_Overview
 
 DESCRIPTION::

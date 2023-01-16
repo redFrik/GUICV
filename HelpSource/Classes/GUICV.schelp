@@ -1,6 +1,6 @@
 CLASS:: GUICV
 SUMMARY:: GUICV base class for look and feel
-CATEGORIES:: Green
+CATEGORIES:: Green>GUICV
 RELATED:: Classes/AbstractGUICVView, Classes/CV, Overviews/GUICVOverview
 
 
