@@ -58,7 +58,7 @@ GUICV.knob().front;
 
 CLASSMETHODS::
 
-METHOD:: button, knob, levelIndicator, numberBox, popUpMenu, slider, staticText
+METHOD:: button, knob, levelIndicator, numberBox, popUpMenu, slider, staticText, textField
 
 ARGUMENT:: parent
 
@@ -66,6 +66,21 @@ ARGUMENT:: bounds
 
 
 SUBSECTION:: tools
+
+
+METHOD:: adapt
+Make a view green by setting the palette, font and various colours. The settings are from CODE::GUICV.skins.guiCV::.
+
+CODE::
+a= Button();
+a= GUICV.adapt(a);
+a.front;
+::
+
+ARGUMENT:: view
+a LINK::Classes/View::
+
+RETURNS:: the same LINK::Classes/View::
 
 METHOD:: fixDec
 LINK::Classes/Float:: to LINK::Classes/String:: conversion with fixed number of decimals.

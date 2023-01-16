@@ -160,8 +160,7 @@ a= GUICVKnob(w, Rect(100, 100, 100, 100));
 b= GUICVNumberBox(w, 100@20, a.ref)
 .scroll_step_(0.01);
 c= GUICVSliderLabel(w, Rect(10, 50, 300, 10), a.ref)
-.string_("test")
-.orientation_(\horizontal);
+.string_("test");
 )
 
 //volume control

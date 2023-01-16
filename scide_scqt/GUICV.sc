@@ -34,69 +34,65 @@ GUICV {
 		GUI.skins.put(\guiCV, skin);
 	}
 
-	*button {|parent, bounds|
-		var skin= GUI.skins.guiCV;
-		^Button(parent, bounds)
-		.palette_(skin.palette)
-		.focusColor_(skin.highlight)
-		.font_(Font(*skin.fontSpecs))
-	}
+	*button {|parent, bounds| ^this.adapt(Button(parent, bounds))}
+	*knob {|parent, bounds| ^this.adapt(Knob(parent, bounds))}
+	*levelIndicator {|parent, bounds| ^this.adapt(LevelIndicator(parent, bounds))}
+	*numberBox {|parent, bounds| ^this.adapt(NumberBox(parent, bounds))}
+	*popUpMenu {|parent, bounds| ^this.adapt(PopUpMenu(parent, bounds))}
+	*slider {|parent, bounds| ^this.adapt(Slider(parent, bounds))}
+	*staticText {|parent, bounds| ^this.adapt(StaticText(parent, bounds))}
+	*textField {|parent, bounds| ^this.adapt(TextField(parent, bounds))}
 
-	*knob {|parent, bounds|
+	*adapt {|view|
 		var skin= GUI.skins.guiCV;
-		^Knob(parent, bounds)
-		.palette_(skin.palette)
-		.focusColor_(skin.highlight)
-		.color_([skin.foreground, skin.highlight, skin.foreground, skin.highlight])
-	}
-
-	*levelIndicator {|parent, bounds|
-		var skin= GUI.skins.guiCV;
-		^LevelIndicator(parent, bounds)
-		.background_(skin.background)
-		.critical_(-1.dbamp)
-		.criticalColor_(Color.white)
-		.drawsPeak_(true)
-		.meterColor_(skin.highlight)
-		.stepWidth_(1)
-		.style_(\led)
-		.warning_(-3.dbamp)
-		.warningColor_(skin.highlight.blend(Color.white))
-	}
-
-	*numberBox {|parent, bounds|
-		var skin= GUI.skins.guiCV;
-		^NumberBox(parent, bounds)
-		.palette_(skin.palette)
-		.font_(Font(*skin.fontSpecs))
-		.normalColor_(skin.fontColor)
-		.typingColor_(skin.highlight)
-	}
-
-	*popUpMenu {|parent, bounds|
-		var skin= GUI.skins.guiCV;
-		^PopUpMenu(parent, bounds)
-		.palette_(skin.palette)
-		.font_(Font(*skin.fontSpecs))
-		.minWidth_(skin.knobWidth)
-	}
-
-	*slider {|parent, bounds|
-		var skin= GUI.skins.guiCV;
-		^Slider(parent, bounds)
-		.palette_(skin.palette)
-		.background_(skin.foreground)
-		.focusColor_(skin.highlight)
-		.knobColor_(skin.highlight)
-		.orientation_(\vertical)
-		.thumbSize_(4)
-	}
-
-	*staticText {|parent, bounds|
-		var skin= GUI.skins.guiCV;
-		^StaticText(parent, bounds)
-		.palette_(skin.palette)
-		.font_(Font(*skin.fontSpecs))
+		view.palette_(skin.palette);
+		switch(view.class,
+			Button, {
+				view.focusColor_(skin.highlight)
+				.font_(Font(*skin.fontSpecs))
+			},
+			Knob, {
+				view.focusColor_(skin.highlight)
+				.color_([skin.foreground, skin.highlight, skin.foreground, skin.highlight])
+			},
+			LevelIndicator, {
+				view.background_(skin.background)
+				.critical_(-1.dbamp)
+				.criticalColor_(Color.white)
+				.drawsPeak_(true)
+				.meterColor_(skin.highlight)
+				.stepWidth_(1)
+				.style_(\led)
+				.warning_(-3.dbamp)
+				.warningColor_(skin.highlight.blend(Color.white))
+			},
+			NumberBox, {
+				view.font_(Font(*skin.fontSpecs))
+				.normalColor_(skin.fontColor)
+				.typingColor_(skin.highlight)
+			},
+			PopUpMenu, {
+				view.font_(Font(*skin.fontSpecs))
+				.minWidth_(skin.knobWidth)
+			},
+			Slider, {
+				view.orientation_(\vertical);
+				if(view.bounds.notNil and:{view.bounds.width>view.bounds.height}, {
+					view.orientation_(\horizontal);
+				});
+				view.background_(skin.foreground)
+				.focusColor_(skin.highlight)
+				.knobColor_(skin.highlight)
+				.thumbSize_(4)
+			},
+			StaticText, {
+				view.font_(Font(*skin.fontSpecs))
+			},
+			TextField, {
+				view.font_(Font(*skin.fontSpecs))
+			}
+		);
+		^view
 	}
 
 	*fixDec {|val, numDecimals= 2|  //float to string with fixed number of decimals
