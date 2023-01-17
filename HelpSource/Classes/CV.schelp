@@ -81,14 +81,20 @@ Get or set the current value. This value will be constrained by the spec.
 
 SUBSECTION:: Actions
 
+METHOD:: action
+Set a function that should be evaluated when the value is set. This will overwrite any added actions.
+
+ARGUMENT:: action
+A LINK::Classes/Function::. The first argument passed in will be this CV itself, the second the current value of ref.
+
 METHOD:: addAction
-Action taken when the value is set. Several functions can be added.
+Add a function that should be evaluated when the value is set. Several functions can be added.
 
 ARGUMENT:: action
 A LINK::Classes/Function::. The first argument passed in will be this CV itself, the second the current value of ref.
 
 METHOD:: removeAction
-Remove the action.
+Remove the function.
 
 ARGUMENT:: action
 A LINK::Classes/Function::.

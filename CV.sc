@@ -42,6 +42,10 @@ CV {
 	value_ {|val| ref.value_(spec.constrain(val)).changed(\value)}
 	value {^spec.constrain(ref.value)}
 
+	action_ {|action|
+		actions= List.new;
+		this.addAction(action);
+	}
 	addAction {|action| actions.add(action)}
 	removeAction {|action| actions.remove(action)}
 
