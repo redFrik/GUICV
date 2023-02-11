@@ -54,6 +54,13 @@ AbstractGUICVView : SCViewHolder {
 	link {|widget| cv.link(widget.cv)}
 	unlink {cv.unlink}
 
+	asStream {
+		^Routine({loop{cv.value.yield}})
+	}
+	embedInStream {|inval|
+		^cv.value.embedInStream(inval)
+	}
+
 	//--private
 
 	prConnect {

@@ -68,6 +68,13 @@ CV {
 		ref.addDependant(this);
 	}
 
+	asStream {
+		^Routine({loop{this.value.yield}})
+	}
+	embedInStream {|inval|
+		^this.value.embedInStream(inval)
+	}
+
 	asControlInput {^this.value.asControlInput}
 
 	printOn {|stream|

@@ -106,6 +106,24 @@ METHOD:: close
 Close widget and remove controllers.
 
 
+SUBSECTION:: Stream Support
+
+METHOD:: asStream
+Creates a Routine that embeds the cv. This allows the widget to function as a LINK::Classes/Stream::.
+
+CODE::
+a= GUICVKnob().front;
+p= Pbind(\degree, Pseq(#[0, 1, 2, 3], inf), \amp, a, \dur, 0.1).play;
+a.value= 0.1;
+a.value= 0.5;
+p.stop;
+a.close;
+::
+
+METHOD:: embedInStream
+Embeds the cv within an enclosing LINK::Classes/Stream::.
+
+
 EXAMPLES::
 
 SUBSECTION:: basic example

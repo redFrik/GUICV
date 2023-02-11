@@ -118,6 +118,23 @@ METHOD:: unlink
 Disconnect any linked CVs.
 
 
+SUBSECTION:: Stream Support
+
+METHOD:: asStream
+Creates a Routine that embeds the cv. This allows it to function as a LINK::Classes/Stream::.
+
+CODE::
+a= CV();
+p= Pbind(\degree, Pseq(#[0, 1, 2, 3], inf), \amp, a, \dur, 0.1).play;
+a.value= 0.1;
+a.value= 0.5;
+p.stop;
+::
+
+METHOD:: embedInStream
+Embeds the cv within an enclosing LINK::Classes/Stream::.
+
+
 EXAMPLES::
 
 SUBSECTION:: Basics
