@@ -6,7 +6,7 @@ Some GUI widgets with a colour theme and built-in controllers (M-V-C).
 
 These widgets are also efficient as they filter out repeated values and only redraw when needed.
 
-Mainly written for use in the [GFX](https://github.com/redFrik/GFX) quark. Based on the older redGUI in the [redSys](https://github.com/redFrik/redSys) quark.
+Mainly written for use in the [GFX](https://github.com/redFrik/GFX) quark. Based on my older redGUI in the [redSys](https://github.com/redFrik/redSys) quark. redGUI was, in turn, loosely based on Ron Kuivila's [Conductor](https://github.com/supercollider-quarks/Conductor) quark.
 
 ### Basic example:
 
