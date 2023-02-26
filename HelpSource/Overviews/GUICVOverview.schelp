@@ -43,7 +43,7 @@ STRONG:: Supporting controller classes:::
 CLASSTREE:: CV
 
 
-SUBSECTION:: Dependancies
+SUBSECTION:: Dependencies
 
 * LINK::Classes/QtGUI:: - i.e. will run on most SuperCollider installs.
 

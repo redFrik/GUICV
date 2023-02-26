@@ -100,7 +100,7 @@ ARGUMENT:: action
 A LINK::Classes/Function::.
 
 METHOD:: remove
-Remove all dependancies.
+Remove all dependencies.
 
 METHOD:: update
 Force all the added actions to evaluate (not actions of any linked CVs).

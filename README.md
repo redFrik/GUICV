@@ -23,7 +23,7 @@ a.value= 1.0.rand;  //set the knob's value from code
 
 [SuperCollider](https://supercollider.github.io) version 3.9 or newer running under macOS, Linux or Windows.
 
-## Dependancies
+## Dependencies
 
 * **QtGUI** - i.e. will run on most SuperCollider installs.
 
