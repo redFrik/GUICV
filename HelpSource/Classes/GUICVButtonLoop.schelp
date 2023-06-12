@@ -1,0 +1,49 @@
+CLASS:: GUICVButtonLoop
+SUMMARY:: a Button with loop icon
+CATEGORIES:: Green>GUICV
+RELATED:: Classes/GUICV, Classes/CV, Classes/Button
+
+
+DESCRIPTION::
+
+
+INSTANCEMETHODS::
+
+PRIVATE:: prDrawFunc
+
+METHOD:: rotation
+Get or set the rotation in radians.
+
+METHOD:: refresh
+Force redraw and make any changes made using the above method visible.
+
+
+EXAMPLES::
+
+CODE::
+a= GUICVButtonLoop().front;
+a.value= 1500;
+a.value= -5;
+a.value;  //constrained by spec to 0.0
+a.get;  //normalised
+a.set(0.5);
+a.set(0.49);
+
+a.rotation= pi;
+a.refresh;
+
+
+//animation
+(
+r= Routine({
+	inf.do{|i|
+		a.rotation= i * -0.02;
+		a.refresh;
+		(1/60).wait;
+	};
+}).play(AppClock);
+)
+r.stop;
+
+a.close;
+::

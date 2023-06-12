@@ -31,7 +31,7 @@ METHOD:: stringRotation
 Get or set the rotation of the string in radians.
 
 METHOD:: refresh
-Force redraw and make any changes using the above methods visible.
+Force redraw and make any changes made using the above methods visible.
 
 
 EXAMPLES::

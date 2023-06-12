@@ -1,0 +1,27 @@
+CLASS:: GUICVButtonPlay
+SUMMARY:: a Button with play/stop icon
+CATEGORIES:: Green>GUICV
+RELATED:: Classes/GUICV, Classes/CV, Classes/Button
+
+
+DESCRIPTION::
+
+
+INSTANCEMETHODS::
+
+PRIVATE:: prCreateView, prDrawFunc, string
+
+
+EXAMPLES::
+
+CODE::
+a= GUICVButtonPlay().front;
+a.value= 1500;
+a.value= -5;
+a.value;  //constrained by spec to 0.0
+a.get;  //normalised
+a.set(0.5);
+a.set(0.49);
+
+a.close;
+::
