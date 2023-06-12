@@ -25,9 +25,8 @@ a.value= 1.0.rand;  //set the knob's value from code
 
 ## Dependencies
 
-* **QtGUI** - i.e. will run on most SuperCollider installs.
-
-The exception is the CV class. It can be used without QtGUI.
+* **QtGUI** - i.e. it will run on most SuperCollider installs.  
+An exception is the CV class. It does not use QtGUI and can be used on any SuperCollider install (it will work under so called headless systems).
 
 ## Installation
 

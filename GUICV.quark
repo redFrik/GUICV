@@ -3,7 +3,7 @@
 	summary: "Green GUI widgets with built-in controllers",
 	author: "Fredrik Olofsson",
 	since: "2022",
-	version: "0.3.3",
+	version: "0.3.4",
 	license: "GPL",
 	dependencies: [],
 	isCompatible: {Main.versionAtLeast(3, 9)},
