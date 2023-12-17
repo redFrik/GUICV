@@ -115,3 +115,21 @@ GUICVButtonLoop : GUICVButtonPlay {
 		}
 	}
 }
+
+GUICVButtonRecord : GUICVButtonPlay {
+
+	prDrawFunc {|skin|
+		^{|usr|
+			var w= usr.bounds.width*0.5;
+			var h= usr.bounds.height*0.5;
+			var dw= w.min(h)*0.75;
+			if(view.value==0, {
+				Pen.fillColor= skin.fontColor;
+				Pen.fillOval(Rect.aboutPoint(Point(w, h), dw, dw));
+			}, {
+				Pen.fillColor= skin.foreground;
+				Pen.fillRect(Rect.aboutPoint(Point(w, h), dw, dw));
+			});
+		}
+	}
+}
